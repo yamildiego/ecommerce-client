@@ -1,0 +1,8 @@
+.LinkOption {
+  cursor: pointer;
+  font-size: 20px;
+}
+.LinkOption:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

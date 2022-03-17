@@ -1,0 +1,25 @@
+//Config
+export const SET_IS_LOADING = "SET_IS_LOADING";
+export const TOGGLE_SLIDE_MENU_OPEN = "TOGGLE_SLIDE_MENU_OPEN";
+export const TOGGLE_OPTIONS_MENU = "TOGGLE_OPTIONS_MENU";
+export const SET_DIMENSIONS = "SET_DIMENSIONS";
+
+//App
+export const TOGGLE_FILTER = "TOGGLE_FILTER";
+
+//Api
+export const SET_USER = "SET_USER";
+export const SET_FORM_VALIDATION_LOGIN = "SET_FORM_VALIDATION_LOGIN";
+export const SET_ERROR_GENERAL = "SET_ERROR_GENERAL";
+
+//Ecommerce
+export const SET_SEARCH = "SET_SEARCH";
+export const SET_FILTERS = "SET_FILTERS";
+export const SET_FILTERS_STRUCTURES = "SET_FILTERS_STRUCTURES";
+export const SET_IS_LOADING_SHOP = "SET_IS_LOADING_SHOP";
+export const SET_PRODUCTS = "SET_PRODUCTS";
+export const SET_PAGE = "SET_PAGE";
+export const SET_SORT = "SET_SORT";
+export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
+export const RESET_FILTER = "RESET_FILTER";
+export const SET_ITEM_SELECTED = "SET_ITEM_SELECTED";

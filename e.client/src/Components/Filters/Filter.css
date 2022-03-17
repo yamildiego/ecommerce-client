@@ -1,0 +1,10 @@
+.IconFilter {
+  margin-top: "4px";
+  transition: all 0.2s ease-out;
+  height: 24px;
+}
+
+.IconFilterOpen {
+  transform: rotateX(180deg);
+  transition: all 0.2s ease-out;
+}

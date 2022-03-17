@@ -1,0 +1,8 @@
+.Discount {
+  position: absolute;
+  right: 10px;
+  color: #41a239;
+  font-size: 18px;
+  transform: rotate(19deg);
+  top: 12px;
+}
