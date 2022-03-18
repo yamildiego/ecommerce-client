@@ -49,28 +49,6 @@ export const setTotalPages = (totalPages) => ({
   totalPages,
 });
 
-export const setItemSelected = (itemSelected) => ({
-  type: Types.SET_ITEM_SELECTED,
-  itemSelected,
-});
-
-export const getProduct = (cloudProductId) => {
-  return async (dispatch) => {
-    dispatch(setIsLoading(true));
-    await server
-      .post(`${Urls.getProduct}`, { cloudProductId })
-      .then((response) => {
-        if (response.data.status === "OK") {
-          dispatch(setItemSelected(response.data.item));
-          dispatch(setIsLoading(false));
-        }
-      })
-      .catch((error) => {
-        console.log("getProduct");
-      });
-  };
-};
-
 export const loadProducts = (filter, sort) => {
   return async (dispatch) => {
     dispatch(setIsLoading(true));
@@ -86,30 +64,5 @@ export const loadProducts = (filter, sort) => {
       .catch((error) => {
         console.log("loadProducts");
       });
-  };
-};
-
-export const loadImages = (images) => {
-  return async (dispatch) => {
-    dispatch(setIsLoading(true));
-
-    console.log("loadImages");
-    let promises = [];
-
-    images.forEach((image) => {
-      let p = new Promise((resolve, reject) => {
-        axios.get(image.portraitURL.replace("w_400", "w_800")).then((response) => {
-          console.log(response);
-          resolve(response.data);
-        });
-      });
-
-      promises.push(p);
-    });
-
-    Promise.all(promises).then((response) => {
-      console.log(response);
-      dispatch(setIsLoading(false));
-    });
   };
 };

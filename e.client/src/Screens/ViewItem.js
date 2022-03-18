@@ -6,23 +6,24 @@ import View from "../Components/View/View";
 
 import withParamsAndNavigate from "../Functions/withParamsAndNavigate";
 
-import * as ecommerceActions from "../Actions/ecommerceActions";
+import * as viewProductActions from "../Actions/viewProductActions";
 
 class ViewItem extends Component {
   componentDidMount() {
-    this.props.dispatch(ecommerceActions.getProduct(this.props.params.cloudProductId));
+    this.props.dispatch(viewProductActions.getProduct(this.props.params.cloudProductId));
   }
 
   render() {
-    const { itemSelected } = this.props;
-    return <ScreenLayout>{this.props.itemSelected != null && <View itemSelected={itemSelected} />}</ScreenLayout>;
+    return (
+      <ScreenLayout>
+        <View />
+      </ScreenLayout>
+    );
   }
 }
 
 function mapStateToProps(state, props) {
-  return {
-    itemSelected: state.ecommerceReducer.itemSelected,
-  };
+  return {};
 }
 
 export default withParamsAndNavigate(connect(mapStateToProps)(ViewItem));

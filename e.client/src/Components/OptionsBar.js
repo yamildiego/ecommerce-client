@@ -40,7 +40,9 @@ class OptionsBar extends Component {
   };
 
   render() {
-    const { sortsStructures, sort } = this.props;
+    const { sortsStructures, sort, products } = this.props;
+    const fontWeightSort = sort !== null ? 500 : 100;
+    const fontWeightShow = !this.props.filterOpen ? 500 : 100;
     return (
       <Stack direction="row" spacing={1} sx={{ justifyContent: "end", position: "relative" }}>
         <Box sx={{ flex: 1, pl: 2, m: "10px" }}>
@@ -53,9 +55,9 @@ class OptionsBar extends Component {
             )}
           </h2>
         </Box>
-        <Pagination />
+        {products.length > 0 && <Pagination />}
         <Button
-          sx={{ width: "242px" }}
+          sx={{ width: "242px", fontWeight: fontWeightSort }}
           variant="inherit"
           endIcon={<KeyboardArrowDownIcon />}
           onClick={() => this.setState({ expanded: !this.state.expanded })}
@@ -87,8 +89,13 @@ class OptionsBar extends Component {
             </List>
           </Box>
         </Collapse>
-        <Button onClick={this.toggleFilter} variant="inherit" endIcon={this.props.filterOpen ? <FilterAltOffIcon /> : <FilterAltIcon />}>
-          <Box sx={{ width: "45px" }}>{this.props.filterOpen ? "Hide" : "Show"}</Box>
+        <Button
+          sx={{ fontWeight: fontWeightShow }}
+          onClick={this.toggleFilter}
+          variant="inherit"
+          endIcon={this.props.filterOpen ? <FilterAltOffIcon /> : <FilterAltIcon />}
+        >
+          <Box style={{ width: "45px", fontFamily: "Roboto", fontWeight: fontWeightShow }}>{this.props.filterOpen ? "Hide" : "Show"}</Box>
           filter
         </Button>
       </Stack>
@@ -102,6 +109,7 @@ function mapStateToProps(state, props) {
     sort: state.ecommerceReducer.sort,
     sortsStructures: state.ecommerceReducer.sortsStructures,
     showReset: state.ecommerceReducer.showReset,
+    products: state.ecommerceReducer.products,
   };
 }
 

@@ -13,9 +13,11 @@ import Loading from "./../Components/Loading";
 import OptionsBar from "./../Components/OptionsBar";
 
 import * as ecommerceActions from "../Actions/ecommerceActions";
+import * as viewProductActions from "../Actions/viewProductActions";
 
 class Shop extends Component {
   componentDidMount() {
+    this.props.dispatch(viewProductActions.cleanProductSelected());
     this.setFilter();
     let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
     setTimeout(() => {

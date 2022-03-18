@@ -41,10 +41,10 @@ class Filters extends React.Component {
     const { filtersStructures } = this.props;
     return (
       <Drawer variant="permanent" open={this.props.filterOpen}>
+        <FilterListCheckbox id={"onSale"} {...filtersStructures.onSale} />
         <FilterListCheckbox id={"category"} {...filtersStructures.category} />
         <FilterListCheckbox id={"gender"} {...filtersStructures.gender} />
         <FilterListCheckbox id={"kids"} {...filtersStructures.kids} />
-        <FilterListCheckbox id={"onSale"} {...filtersStructures.onSale} />
         <FilterRange id={"price"} {...filtersStructures.price} />
       </Drawer>
     );

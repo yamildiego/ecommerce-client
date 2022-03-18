@@ -42,7 +42,16 @@ const CreateLink = (props) => {
   return (
     <React.Fragment>
       {(props.i <= 0 || props.i > props.totalPages || props.page === props.i) && (
-        <Link sx={{ p: 2, userSelect: "none", color: "#222", textDecoration: "none", cursor: "default" }}>{props.label}</Link>
+        <React.Fragment>
+          {props.page === props.i && (
+            <Link sx={{ p: 2, userSelect: "none", color: "#222", textDecoration: "none", cursor: "default", fontWeight: "bold" }}>
+              {props.label}
+            </Link>
+          )}
+          {props.page !== props.i && (
+            <Link sx={{ p: 2, userSelect: "none", color: "#222", textDecoration: "none", cursor: "default" }}>{props.label}</Link>
+          )}
+        </React.Fragment>
       )}
 
       {props.i > 0 && props.i <= props.totalPages && props.page !== props.i && (

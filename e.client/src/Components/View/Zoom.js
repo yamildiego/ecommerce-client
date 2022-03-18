@@ -1,6 +1,9 @@
 import React, { Component, createRef } from "react";
 import styles from "./Zoom.css";
 
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const imageRef = createRef();
 
 class Zoom extends Component {
@@ -9,13 +12,24 @@ class Zoom extends Component {
     zoom: false,
     mouseX: null,
     mouseY: null,
+    blur: 0,
   };
 
   componentDidUpdate(oldProps) {
     if (oldProps.img !== this.props.img) {
       this.setState({ ...this.state, img: this.props.img });
+      this.blur(8);
     }
   }
+
+  blur = (blur) => {
+    setTimeout(() => {
+      if (blur >= 0) {
+        this.setState({ blur });
+        this.blur(blur - 1);
+      }
+    }, 20);
+  };
 
   handleMouseOver = () => this.setState({ zoom: true });
 
@@ -39,19 +53,23 @@ class Zoom extends Component {
   };
 
   render() {
-    const { height, width, transitionTime, zoomScale } = this.props;
-    const { mouseX, mouseY, zoom, img } = this.state;
+    const { height, width, transitionTime, zoomScale, isLoading } = this.props;
+    const { mouseX, mouseY, zoom, img, blur } = this.state;
 
     const innerDivStyle = {
       height: `${height}px`,
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
       backgroundSize: "auto 100%",
-      backgroundImage: `url('${img}')`,
+      backgroundImage: `url("${img}")`,
       transition: `transform ${transitionTime}s ease-out`,
     };
 
-    const outerDivStyle = { height: `${height}px`, width: `${width}px`, overflow: "hidden" };
+    if (blur > 0) {
+      innerDivStyle.filter = `blur(${blur}px)`;
+    }
+
+    const outerDivStyle = { backgroundColor: "#f2f3f2", height: `${height}px`, width: `${width}px`, overflow: "hidden" };
 
     const transform = { transformOrigin: `${mouseX}% ${mouseY}%` };
 
@@ -63,6 +81,11 @@ class Zoom extends Component {
         onMouseMove={this.handleMouseMovement}
         ref={imageRef}
       >
+        {!img && isLoading && (
+          <Box sx={{ justifyContent: "center", display: "flex", height: "100%", alignItems: "center", backgroundColor: "#f2f3f2" }}>
+            <CircularProgress size={45} />
+          </Box>
+        )}
         <div
           style={{
             ...transform,

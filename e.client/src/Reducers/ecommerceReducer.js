@@ -44,7 +44,7 @@ const initSortStructures = [
 const initSort = null;
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   search: "",
   length: 0,
   products: [],
@@ -54,7 +54,6 @@ const initialState = {
   sortsStructures: initSortStructures,
   sort: initSort,
   showReset: false,
-  itemSelected: null,
 };
 
 export default function appReducer(state = initialState, action = {}) {
@@ -63,7 +62,7 @@ export default function appReducer(state = initialState, action = {}) {
       return { ...state, search: action.search };
     }
     case Types.SET_FILTERS: {
-      return { ...state, filters: { ...action.filters, page: 1 }, showReset: true };
+      return { ...state, filters: { ...action.filters, page: 1 }, showReset: true, isLoading: true };
     }
     case Types.SET_PAGE: {
       return { ...state, filters: { ...state.filters, page: action.page } };
@@ -83,15 +82,13 @@ export default function appReducer(state = initialState, action = {}) {
     case Types.SET_TOTAL_PAGES: {
       return { ...state, totalPages: action.totalPages };
     }
-    case Types.SET_ITEM_SELECTED: {
-      return { ...state, itemSelected: action.itemSelected };
-    }
     case Types.RESET_FILTER: {
       return {
         ...state,
         filters: { ...initFilters, ...action.filters },
         filtersStructures: initFiltersStructures,
         showReset: false,
+        isLoading: true,
       };
     }
     default:

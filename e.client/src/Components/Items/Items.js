@@ -12,19 +12,21 @@ import NoElements from "./NoElements";
 
 class Items extends Component {
   render() {
-    const { products } = this.props;
+    const { products, isLoading } = this.props;
     return (
       <Box sx={{ borderLeft: "1px solid #d6d6d6", borderTop: "1px solid #d6d6d6", mb: 1 }}>
-        {this.props.products.length === 0 && <NoElements />}
-        {[...Array(trucateNumber(this.props.products.length / 4, 0))].map((row, i) => (
+        {!isLoading && products.length === 0 && <NoElements />}
+        {[...Array(trucateNumber(products.length / 4, 0))].map((row, i) => (
           <React.Fragment key={i}>
             <RowItems key={i} row={i} products={products} />
           </React.Fragment>
         ))}
-        {this.props.products.length % 4 > 0 && <RowItems row={trucateNumber(this.props.products.length / 4, 0)} products={products} />}
-        <Stack direction="row" spacing={0} sx={{ justifyContent: "center" }}>
-          <Pagination />
-        </Stack>
+        {products.length % 4 > 0 && <RowItems row={trucateNumber(products.length / 4, 0)} products={products} />}
+        {products.length > 0 && (
+          <Stack direction="row" spacing={0} sx={{ justifyContent: "center" }}>
+            <Pagination />
+          </Stack>
+        )}
       </Box>
     );
   }
@@ -32,6 +34,7 @@ class Items extends Component {
 
 function mapStateToProps(state, props) {
   return {
+    isLoading: state.ecommerceReducer.isLoading,
     filters: state.ecommerceReducer.filters,
     products: state.ecommerceReducer.products,
   };

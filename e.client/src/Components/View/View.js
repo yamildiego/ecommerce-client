@@ -3,58 +3,78 @@ import { connect } from "react-redux";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 import Zoom from "./Zoom";
 
-import * as ecommerceActions from "../../Actions/ecommerceActions";
+import * as viewProductActions from "../../Actions/viewProductActions";
 
 class View extends Component {
   state = { currentImage: "" };
 
-  componentDidUpdate(oldProps) {
-    console.log("casda");
-    if (oldProps.itemSelected !== this.props.itemSelected) {
-      let currentImage = this.props.itemSelected.colorways[0].images.portraitURL.replace("w_400", "w_800");
-      console.log("casda");
-      this.props.dispatch(ecommerceActions.loadImages(this.props.itemSelected.colorways[0].images));
-      // this.setState({ currentImage });
-    }
+  componentDidMount() {
+    if (this.props.productSelected !== null) this.props.dispatch(viewProductActions.loadImages(this.props.productSelected.colorways));
   }
 
-  handleOnMouseEnter = (image) => this.setState({ currentImage: image.replace("w_400", "w_800") });
+  componentDidUpdate(oldProps) {
+    if (oldProps.productSelected !== this.props.productSelected)
+      this.props.dispatch(viewProductActions.loadImages(this.props.productSelected.colorways));
+
+    if (oldProps.picturesProductSelected !== this.props.picturesProductSelected && this.props.picturesProductSelected.length > 0)
+      this.setState({ currentImage: this.props.picturesProductSelected[0] });
+  }
+
+  handleOnMouseEnter = (currentImage) => this.setState({ currentImage });
 
   render() {
-    const { itemSelected } = this.props;
+    const { productSelected, picturesProductSelected, isLoadingImages } = this.props;
     return (
       <Stack direction="row" sx={{ mt: 4 }}>
-        <Box sx={{ flex: 0.8, pl: 5, pr: 2, justifyContent: "end", display: "flex" }}>
-          <Stack direction="column">
-            <Box>
-              {/* <Zoom img={this.state.currentImage} zoomScale={2} height={400} width={400} transitionTime={0.5} /> */}
-              {/* <Zoom img={this.state.currentImage} zoomScale={3} width={600} height={600} /> */}
-              {/* <img src={this.state.currentImage} alt={itemSelected.title} style={{ width: "100%", maxWidth: "400px" }} /> */}
+        {productSelected && (
+          <React.Fragment>
+            <Box sx={{ flex: 0.8, pl: 5, pr: 2, justifyContent: "end", display: "flex" }}>
+              <Stack direction="column">
+                <Box>
+                  <Zoom
+                    isLoading={isLoadingImages}
+                    img={this.state.currentImage}
+                    zoomScale={2}
+                    height={400}
+                    width={400}
+                    transitionTime={0.5}
+                  />
+                </Box>
+                {picturesProductSelected.length > 1 && (
+                  <Stack direction="row" spacing={1} sx={{ width: "100%", backgroundColor: "#f6f6f6" }}>
+                    {picturesProductSelected.map((image, i) => {
+                      return (
+                        <Box key={i} onMouseEnter={() => this.handleOnMouseEnter(image)} onMouseOut={this.handleOnMouseOut}>
+                          <img src={image} alt={""} style={{ width: "100%", maxWidth: "35px" }} />
+                        </Box>
+                      );
+                    })}
+                  </Stack>
+                )}
+              </Stack>
             </Box>
-            {itemSelected.colorways.length > 1 && (
-              <Stack direction="row" spacing={1} sx={{ width: "100%", backgroundColor: "#f6f6f6" }}>
-                {itemSelected.colorways.map((color, i) => {
-                  return (
-                    <Box key={i} onMouseEnter={() => this.handleOnMouseEnter(color.images.squarishURL)} onMouseOut={this.handleOnMouseOut}>
-                      <img src={color.images.squarishURL} alt={"Config.NAME"} loading="lazy" style={{ width: "100%", maxWidth: "35px" }} />
-                    </Box>
-                  );
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="h4" sx={{ color: "primary.main", mb: 0 }} gutterBottom component="div">
+                {productSelected.title}
+              </Typography>
+              <Typography variant="h8" sx={{ color: "#9a9a9a" }} gutterBottom component="div">
+                {productSelected.subtitle}
+              </Typography>
+              <Box>${productSelected.price.currentPrice}</Box>
+
+              <Stack direction="row">
+                {productSelected.skuData.map((sku) => {
+                  return <Box sx={{ flex: 1 }}>{sku.size}</Box>;
                 })}
               </Stack>
-            )}
-          </Stack>
-        </Box>
-        <Box sx={{ flex: 1 }}>
-          {this.state.currentImage}
-          <h1 style={{ textAlign: "left" }}>{itemSelected.title}</h1>
-          <Box>$s{itemSelected.price.currentPrice}</Box>
-          {/* {JSON.stringify(itemSelected.colorways)} */}
-        </Box>
-        {/* <div>{JSON.stringify(this.props.itemSelected.title)}</div> */}
-        {/* <div>{JSON.stringify(this.props.itemSelected.colorways)}</div> */}
+              {/* <Box>{JSON.stringify(productSelected.skuData)}</Box> */}
+            </Box>
+          </React.Fragment>
+        )}
       </Stack>
     );
   }
@@ -62,8 +82,10 @@ class View extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    width: state.configReducer.dimensions.width,
-    length: state.ecommerceReducer.length,
+    productSelected: state.viewProductReducer.productSelected,
+    picturesProductSelected: state.viewProductReducer.picturesProductSelected,
+    isLoading: state.viewProductReducer.isLoading,
+    isLoadingImages: state.viewProductReducer.isLoadingImages,
   };
 }
 
