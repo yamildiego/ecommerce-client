@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
 import Logo from "./Logo";
@@ -32,7 +32,7 @@ const options = [
   },
   {
     id: 3,
-    icon: <ShoppingCartIcon />,
+    icon: <ShoppingBagOutlinedIcon />,
     title: "Cart",
   },
 ];

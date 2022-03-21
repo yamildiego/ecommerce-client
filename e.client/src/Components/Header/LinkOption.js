@@ -5,7 +5,7 @@ import "./LinkOption.css";
 const LinkOption = (props) => {
   return (
     <li className="LinkOption" onClick={props.onClick}>
-      <Link variant="inherit" to={"/Shop"} style={{ textDecoration: "none" }}>
+      <Link className="LinkOptionLink" variant="inherit" to={"/Shop"} style={{ textDecoration: "none" }}>
         {props.label}
       </Link>
     </li>

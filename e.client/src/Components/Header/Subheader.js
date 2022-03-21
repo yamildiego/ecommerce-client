@@ -78,7 +78,18 @@ class Subheader extends Component {
           </Box>
         </Box>
         <Collapse in={this.state.open !== false} onMouseLeave={() => this.setState({ open: false })}>
-          <Box sx={{ height: "130px", backgroundColor: "white", zIndex: 15, position: "absolute", marginLeft: "20%", width: "60%" }}>
+          <Box
+            sx={{
+              height: "130px",
+              backgroundColor: "#FDFDFD",
+              zIndex: 15,
+              position: "absolute",
+              width: "100%",
+              minWidth: "450px",
+              borderTop: "1px solid #DDD",
+              boxShadow: "0 3px 3px #ddd",
+            }}
+          >
             <Stack direction="row" sx={{ justifyContent: "space-around", position: "relative" }}>
               <ul style={{ listStyle: "none" }}>
                 {subFilter.map((option) => {

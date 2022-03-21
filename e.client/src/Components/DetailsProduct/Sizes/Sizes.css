@@ -1,0 +1,18 @@
+.Size {
+  padding: 1%;
+  text-align: center;
+  border: 1px solid;
+  margin-right: 1%;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1;
+}
+
+.EmptySize {
+  padding: 1%;
+  text-align: center;
+  margin-right: 1%;
+  font-weight: bold;
+  cursor: default;
+  flex: 1;
+}

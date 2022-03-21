@@ -6,3 +6,7 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+a.LinkOptionLink:visited {
+  color: #222;
+}

@@ -16,7 +16,7 @@ class Loading extends Component {
               zIndex: 200,
               width: "100%",
               justifyContent: "center",
-              backgroundColor: "#6e6e6e7a",
+              backgroundColor: "#d2d2d285",
               pt: 5,
               height: "100%",
             }}

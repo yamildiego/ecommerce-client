@@ -58,7 +58,12 @@ class FilterListCheckbox extends Component {
               return (
                 <FormControlLabel
                   key={option.key}
-                  control={<Checkbox onChange={(event) => this.handleOnchange(event, option)} checked={filters[id].includes(option.key)} />}
+                  control={
+                    <Checkbox
+                      onChange={(event) => this.handleOnchange(event, option)}
+                      checked={filters[id] && filters[id].includes(option.key)}
+                    />
+                  }
                   sx={{ userSelect: "none" }}
                   label={option.label}
                 />

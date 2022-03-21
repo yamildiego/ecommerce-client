@@ -19,18 +19,34 @@ export const setProductSelected = (productSelected) => ({
   productSelected,
 });
 
-export const setPicturesProductSelected = (picturesProductSelected) => ({
-  type: Types.SET_PICTURES_PRODUCT_SELECTED,
-  picturesProductSelected,
+export const setColors = (colors) => ({
+  type: Types.SET_COLORS,
+  colors,
 });
 
-export const addPictureProductSelected = (pictureProductSelected) => ({
-  type: Types.ADD_PICTURES_PRODUCT_SELECTED,
-  pictureProductSelected,
+export const addPicture = (id, src) => ({
+  type: Types.ADD_PICTURE,
+  id,
+  src,
 });
 
 export const cleanProductSelected = () => ({
   type: Types.CLEAN_PRODUCT_SELECTED,
+});
+
+export const setColor = (color) => ({
+  type: Types.SET_COLOR,
+  color,
+});
+
+export const setSize = (size) => ({
+  type: Types.SET_SIZE,
+  size,
+});
+
+export const qty = (qty) => ({
+  type: Types.SET_QTY,
+  qty,
 });
 
 export const getProduct = (cloudProductId) => {
@@ -50,20 +66,27 @@ export const getProduct = (cloudProductId) => {
   };
 };
 
-export const loadImages = (colorways) => {
+export const loadColors = (colorways) => {
   return async (dispatch) => {
-    let promises = [];
     dispatch(setIsLoadingImages(true));
+
+    let promises = [];
+    let colors = [];
+
     colorways.forEach((colorway) => {
+      let color = { id: colorway.pid, label: colorway.colorDescription, src: null };
       let p = fetch(colorway.images.portraitURL.replace("w_400", "w_592"))
         .then((res) => res.blob())
         .then(blobToBase64);
-      promises.push(p);
+      promises[colorway.pid] = p;
+      colors.push(color);
     });
 
-    promises.forEach((p) => {
+    dispatch(setColors(colors));
+
+    promises.forEach((p, index) => {
       p.then((response) => {
-        dispatch(addPictureProductSelected(response));
+        dispatch(addPicture(index, response));
       });
     });
   };

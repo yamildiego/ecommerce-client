@@ -40,7 +40,7 @@ class OptionsBar extends Component {
   };
 
   render() {
-    const { sortsStructures, sort, products } = this.props;
+    const { sortsStructures, sort, products, size } = this.props;
     const fontWeightSort = sort !== null ? 500 : 100;
     const fontWeightShow = !this.props.filterOpen ? 500 : 100;
     return (
@@ -57,12 +57,14 @@ class OptionsBar extends Component {
         </Box>
         {products.length > 0 && <Pagination />}
         <Button
-          sx={{ width: "242px", fontWeight: fontWeightSort }}
+          sx={{ width: "242px", fontWeight: fontWeightSort, ml: 0 }}
           variant="inherit"
           endIcon={<KeyboardArrowDownIcon />}
           onClick={() => this.setState({ expanded: !this.state.expanded })}
         >
-          Sort {sort !== null ? `By ${sortsStructures[sort].name}` : ""}
+          {(size === "M" || size === "L") && (
+            <React.Fragment>Sort {sort !== null ? `By ${sortsStructures[sort].name}` : ""}</React.Fragment>
+          )}
         </Button>
         <Collapse in={this.state.expanded} timeout="auto">
           <Box
@@ -95,8 +97,14 @@ class OptionsBar extends Component {
           variant="inherit"
           endIcon={this.props.filterOpen ? <FilterAltOffIcon /> : <FilterAltIcon />}
         >
-          <Box style={{ width: "45px", fontFamily: "Roboto", fontWeight: fontWeightShow }}>{this.props.filterOpen ? "Hide" : "Show"}</Box>
-          filter
+          {(size === "M" || size === "L") && (
+            <React.Fragment>
+              <Box style={{ width: "45px", fontFamily: "Roboto", fontWeight: fontWeightShow }}>
+                {this.props.filterOpen ? "Hide" : "Show"}
+              </Box>
+              filter
+            </React.Fragment>
+          )}
         </Button>
       </Stack>
     );
@@ -110,6 +118,7 @@ function mapStateToProps(state, props) {
     sortsStructures: state.ecommerceReducer.sortsStructures,
     showReset: state.ecommerceReducer.showReset,
     products: state.ecommerceReducer.products,
+    size: state.configReducer.dimensions.size,
   };
 }
 
