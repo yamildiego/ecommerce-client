@@ -8,6 +8,7 @@ const initialState = {
   color: null,
   size: null,
   qty: 1,
+  showErrors: false,
 };
 
 export default function viewProductReducer(state = initialState, action = {}) {
@@ -41,6 +42,9 @@ export default function viewProductReducer(state = initialState, action = {}) {
     }
     case Types.SET_QTY: {
       return { ...state, qty: action.qty };
+    }
+    case Types.SHOW_ERRORS: {
+      return { ...state, showErrors: action.showErrors };
     }
     default:
       return state;

@@ -33,3 +33,8 @@ export const SET_COLORS = "SET_COLORS";
 export const SET_COLOR = "SET_COLOR";
 export const SET_SIZE = "SET_SIZE";
 export const SET_QTY = "SET_QTY";
+export const SHOW_ERRORS = "SHOW_ERRORS";
+
+//Bag
+export const ADD_ITEM = "ADD_ITEM";
+export const CHANGE_QTY = "CHANGE_QTY";

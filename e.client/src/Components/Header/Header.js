@@ -33,7 +33,7 @@ const options = [
   {
     id: 3,
     icon: <ShoppingBagOutlinedIcon />,
-    title: "Cart",
+    title: "Bag",
   },
 ];
 

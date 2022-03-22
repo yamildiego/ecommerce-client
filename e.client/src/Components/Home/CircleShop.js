@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-import * as ecommerceActions from "../Actions/ecommerceActions";
+import * as ecommerceActions from "../../Actions/ecommerceActions";
 
 class CircleShop extends Component {
   shop = () => this.props.dispatch(ecommerceActions.resetFilter());

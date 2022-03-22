@@ -16,12 +16,12 @@ class Option extends Component {
         }}
       >
         <Box sx={{ textAlign: "center", height: "30px" }}>
-          {this.props.id === 3 && this.props.length !== 0 && (
-            <Badge badgeContent={this.props.length} color="primary">
+          {this.props.id === 3 && this.props.qty !== 0 && (
+            <Badge badgeContent={this.props.qty} color="primary">
               {this.props.icon}
             </Badge>
           )}
-          {(this.props.id !== 3 || this.props.length === 0) && this.props.icon}
+          {(this.props.id !== 3 || this.props.qty === 0) && this.props.icon}
         </Box>
         {this.props.width > 1024 && <Box sx={{ textAlign: "center", fontSize: "12px" }}>{this.props.title}</Box>}
       </Box>
@@ -32,7 +32,7 @@ class Option extends Component {
 function mapStateToProps(state, props) {
   return {
     width: state.configReducer.dimensions.width,
-    length: state.ecommerceReducer.length,
+    qty: state.bagReducer.qty,
   };
 }
 

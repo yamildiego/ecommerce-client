@@ -4,6 +4,7 @@ import appReducer from "./appReducer";
 import apiReducer from "./apiReducer";
 import ecommerceReducer from "./ecommerceReducer";
 import viewProductReducer from "./viewProductReducer";
+import bagReducer from "./bagReducer";
 
 export default combineReducers({
   configReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   apiReducer,
   ecommerceReducer,
   viewProductReducer,
+  bagReducer,
 });

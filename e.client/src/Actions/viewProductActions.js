@@ -49,6 +49,11 @@ export const qty = (qty) => ({
   qty,
 });
 
+export const showErrors = (showErrors) => ({
+  type: Types.SHOW_ERRORS,
+  showErrors,
+});
+
 export const getProduct = (cloudProductId) => {
   return async (dispatch) => {
     dispatch(setIsLoadingView(true));
