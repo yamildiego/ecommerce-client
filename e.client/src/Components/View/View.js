@@ -36,10 +36,7 @@ class View extends Component {
   render() {
     const { productSelected, isLoadingImages, size } = this.props;
     return (
-      <Stack
-        direction={"column"}
-        sx={size === "S" ? { ml: 2, mr: 2 } : { width: size === "L" ? "1000px" : "600px", ml: 2, mr: 2, margin: "auto" }}
-      >
+      <React.Fragment>
         <Stack direction={size === "L" ? "row" : "column"}>
           {productSelected && (
             <React.Fragment>
@@ -64,7 +61,7 @@ class View extends Component {
         <Typography variant="h4" sx={{ color: "primary.main", mt: 4 }} gutterBottom component="div">
           YOU MAY ALSO LIKE
         </Typography>
-      </Stack>
+      </React.Fragment>
     );
   }
 }

@@ -23,20 +23,32 @@ class DetailsProduct extends Component {
 
   handleOnClick = () => {
     if (this.props.size !== null && this.props.color !== null) {
-      this.props.dispatch(viewProductActions.showErrors(false));
-      let item = {
-        id: this.props.cloudProductId,
-        title: this.props.title,
-        subtitle: this.props.subtitle,
-        color: this.props.color,
-        size: this.props.size,
-        qty: 1,
-        price: this.props.price.currentPrice,
-        colors: this.props.colors,
-        dateTime: Date.now(),
-      };
+      let items = [];
+      let added = false;
 
-      this.props.dispatch(bagActions.addItem(item));
+      this.props.items.forEach((item) => {
+        if (item.id === this.props.cloudProductId && item.size.size === this.props.size.size && item.color.id === this.props.color.id) {
+          added = true;
+          items.push({ ...item, qty: Number(item.qty) + 1 });
+        } else items.push(item);
+      });
+
+      if (!added)
+        items.push({
+          id: this.props.cloudProductId,
+          title: this.props.title,
+          subtitle: this.props.subtitle,
+          color: this.props.color,
+          size: this.props.size,
+          qty: 1,
+          price: this.props.price.currentPrice,
+          colors: this.props.colors,
+          dateTime: Date.now(),
+        });
+
+      this.props.dispatch(bagActions.setItems(items));
+      this.props.dispatch(viewProductActions.showErrors(false));
+
       this.setState({ open: true });
     } else {
       this.props.dispatch(viewProductActions.showErrors(true));
@@ -95,6 +107,7 @@ function mapStateToProps(state, props) {
     color: state.viewProductReducer.color,
     showErrors: state.viewProductReducer.showErrors,
     colors: state.viewProductReducer.colors,
+    items: state.bagReducer.items,
   };
 }
 

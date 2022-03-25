@@ -27,21 +27,23 @@ class Resume extends Component {
         </Stack>
         <Stack direction={"row"} sx={styles.line}>
           <Box>Delivery cost</Box>
-          <Box>{`$${total > Config.DELIVERY_FREE_FROM ? "FREE" : formatNumber(delivery)}`}</Box>
+          <Box>{`$${total > Config.DELIVERY_FREE_FROM ? "FREE" : formatNumber(qty === 0 ? 0 : delivery)}`}</Box>
         </Stack>
         <Divider />
         <Stack direction={"row"} sx={styles.lineTotal}>
           <Box>Total</Box>
-          <Box>${formatNumber(total + (total > Config.DELIVERY_FREE_FROM ? 0 : delivery))}</Box>
+          <Box>${formatNumber(total + (total > Config.DELIVERY_FREE_FROM ? 0 : qty === 0 ? 0 : delivery))}</Box>
         </Stack>
-        <Link to="/bag" style={{ textDecoration: "none" }}>
-          <Button fullWidth onClick={() => this.handleOnClick()} sx={{ flex: 1, mt: 2 }} variant="contained">
-            Check out
+        <Box>
+          <Link to="/bag" style={{ textDecoration: "none" }}>
+            <Button fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
+              Check out
+            </Button>
+          </Link>
+          <Button fullWidth onClick={() => this.handleShopping()} sx={{ flex: 1, mt: 2 }} variant="outlined">
+            Continue shopping
           </Button>
-        </Link>
-        <Button onClick={() => this.handleShopping()} sx={{ flex: 1, mt: 2 }} variant="outlined">
-          Continue shopping
-        </Button>
+        </Box>
       </Stack>
     );
   }

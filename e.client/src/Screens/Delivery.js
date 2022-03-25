@@ -9,13 +9,12 @@ import Button from "@mui/material/Button";
 import ScreenLayout from "./ScreenLayout";
 import OrderSumary from "../Components/OrderSumary/OrderSumary";
 import MyStepper from "../Components/MyStepper/MyStepper";
-import ListYourBag from "../Components/ListYourBag/ListYourBag";
 
 import * as bagActions from "../Actions/bagActions";
 
-class Bag extends Component {
+class Delivery extends Component {
   componentDidMount() {
-    this.props.dispatch(bagActions.setActiveStep(0));
+    this.props.dispatch(bagActions.setActiveStep(1));
   }
 
   render() {
@@ -25,16 +24,7 @@ class Bag extends Component {
         <Box sx={{ pl: 2, pr: 2 }}>
           <MyStepper />
           <Stack direction={size === "S" ? "column" : "row"} sx={{ justifyContent: "space-between" }}>
-            <Box sx={{ backgroundColor: "white", flex: 1, pr: 2 }}>
-              <ListYourBag />
-              {this.props.items.length > 0 && (
-                <Link to="/delivery" style={{ textDecoration: "none" }}>
-                  <Button fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
-                    Check out
-                  </Button>
-                </Link>
-              )}
-            </Box>
+            <Box sx={{ backgroundColor: "white", flex: 1, pr: 2 }}>ACA COMPLETA LA DIRE</Box>
             <Box sx={{ width: "350px" }}>
               <Box sx={{ height: "77px" }}>
                 {this.props.items.length > 0 && (
@@ -61,4 +51,4 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps)(Bag);
+export default connect(mapStateToProps)(Delivery);

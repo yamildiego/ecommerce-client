@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Divider from "@mui/material/Divider";
 
 import * as bagActions from "../../Actions/bagActions";
 
-class DetailProductModal extends Component {
+class ItemBag extends Component {
   handleOnChange = (e, item) => {
     if (!Number.isNaN(parseInt(e.target.value)) && parseInt(e.target.value) > 0) {
       let items = [];
@@ -31,22 +30,24 @@ class DetailProductModal extends Component {
         items.push(item);
     });
     this.props.dispatch(bagActions.setItems(items));
-    this.props.close();
   };
 
   render() {
     const { item } = this.props;
     return (
-      <Box sx={{ flex: 1 }}>
-        <h3 style={styles.title}>{item.title}</h3>
-        <Stack direction={"row"} sx={{ justifyContent: "space-between" }}>
-          <div style={{ maxWidth: "130px" }}>
-            <img src={item.color.src} alt={""} loading="lazy" style={{ width: "100%" }} />
-          </div>
-          <Box sx={{ flex: 1, pl: 1 }}>
-            <h5 style={styles.subtitle}>{item.subtitle}</h5>
-            <Box sx={styles.text}>Color: {item.color.label}</Box>
-            <Box sx={styles.text}>Size : {item.size.size}</Box>
+      <Box sx={styles.container}>
+        <Stack direction={"row"}>
+          <Box sx={{ maxWidth: "200px" }}>
+            <img src={item.color.src} alt="" style={{ width: "100%", height: "100%" }} />
+          </Box>
+          <Box sx={{ p: 2, flex: 1, position: "relative" }}>
+            <div style={styles.close} onClick={this.handleOnClick}>
+              X
+            </div>
+            <h2 style={styles.title}>{item.title}</h2>
+            <h4 style={styles.subtitle}>{item.subtitle}</h4>
+            <Box sx={styles.line}>Size: {item.size.size}</Box>
+            <Box sx={styles.line}>Color: {item.color.label}</Box>
             <Stack direction={"row"}>
               <Box sx={styles.textQty}>Quantity :</Box>
               <TextField
@@ -59,33 +60,24 @@ class DetailProductModal extends Component {
             </Stack>
           </Box>
         </Stack>
-        <Divider sx={{ mt: 1, mb: 1 }} />
-        <Box sx={styles.btnRemove} onClick={() => this.handleOnClick(item)}>
-          Remove item
-        </Box>
       </Box>
     );
   }
 }
 
 const styles = {
-  title: {
-    userSelect: "none",
-    cursor: "default",
-    marginTop: 0,
-    lineHeight: "15px",
+  container: {
+    border: "1px solid #0000001f",
+    mb: 1,
+    borderRadius: "1px",
   },
+  title: { margin: 0 },
   subtitle: {
-    userSelect: "none",
-    cursor: "default",
-    marginTop: 0,
-    lineHeight: "15px",
+    margin: 0,
+    fontWeight: "normal",
   },
-  text: {
-    userSelect: "none",
-    cursor: "default",
-    fontSize: "14px",
-    lineHeight: "35px",
+  line: {
+    lineHeight: "38px",
   },
   textQty: {
     userSelect: "none",
@@ -101,19 +93,19 @@ const styles = {
     margin: 0,
     ml: 2,
   },
-  btnRemove: {
-    textAlign: "center",
-    color: "red",
+  close: {
     cursor: "pointer",
-    fontSize: "10px",
+    position: "absolute",
+    right: 10,
+    top: 4,
+    fontWeight: "bold",
   },
 };
 
 function mapStateToProps(state, props) {
   return {
-    item: state.bagReducer.items.sort((a, b) => (a.dateTime > b.dateTime ? -1 : 1))[0],
     items: state.bagReducer.items,
   };
 }
 
-export default connect(mapStateToProps)(DetailProductModal);
+export default connect(mapStateToProps)(ItemBag);

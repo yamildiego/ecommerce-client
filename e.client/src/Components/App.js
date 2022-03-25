@@ -11,6 +11,7 @@ import Home from "../Screens/Home";
 import Shop from "../Screens/Shop";
 import ViewItem from "../Screens/ViewItem";
 import Bag from "../Screens/Bag";
+import Delivery from "../Screens/Delivery";
 
 import withParamsAndNavigate from "../Functions/withParamsAndNavigate";
 
@@ -41,6 +42,7 @@ class App extends Component {
             <Route path="/Shop/:filter" element={<Shop />} />
             <Route path="/View/:cloudProductId" element={<ViewItem />} />
             <Route path="/Bag" element={<Bag />} />
+            <Route path="/Delivery" element={<Delivery />} />
           </Routes>
         </ScrollToTop>
       </ThemeProvider>

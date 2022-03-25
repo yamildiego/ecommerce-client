@@ -15,7 +15,7 @@ class ViewItem extends Component {
 
   render() {
     return (
-      <ScreenLayout>
+      <ScreenLayout limitWidth={true}>
         <View />
       </ScreenLayout>
     );

@@ -28,7 +28,7 @@ class OrderSumary extends Component {
   };
 
   render() {
-    const { total, delivery } = this.props;
+    const { total, qty, delivery } = this.props;
     return (
       <React.Fragment>
         <Stack direction={"column"} sx={styles.container}>
@@ -39,12 +39,12 @@ class OrderSumary extends Component {
           </Stack>
           <Stack direction={"row"} sx={styles.line}>
             <Box>Delivery</Box>
-            <Box>{`$${total > Config.DELIVERY_FREE_FROM ? "FREE" : formatNumber(delivery)}`}</Box>
+            <Box>{`$${total > Config.DELIVERY_FREE_FROM ? "FREE" : formatNumber(qty === 0 ? 0 : delivery)}`}</Box>
           </Stack>
           <Divider sx={{ mt: 2 }} />
           <Stack direction={"row"} sx={styles.lineTotal}>
             <Box>Total</Box>
-            <Box>${formatNumber(total + (total > Config.DELIVERY_FREE_FROM ? 0 : delivery))}</Box>
+            <Box>${formatNumber(total + (total > Config.DELIVERY_FREE_FROM ? 0 : qty === 0 ? 0 : delivery))}</Box>
           </Stack>
         </Stack>
         <Box sx={{ pl: 1, pr: 1, mt: 1 }}>
