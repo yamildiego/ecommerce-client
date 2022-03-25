@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { Link } from "react-router-dom";
+
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,14 +10,16 @@ import Divider from "@mui/material/Divider";
 
 import formatNumber from "../../Functions/formatNumber";
 
-const deliveryFreeFrom = 150;
+import * as Config from "../../Constants/Config";
 
 class Resume extends Component {
+  handleShopping = () => this.props.close();
+
   render() {
     const { total, qty, delivery } = this.props;
     return (
       <Stack direction={"column"} sx={styles.container}>
-        <h1 style={styles.title}>Your bag</h1>
+        <h2 style={styles.title}>YOUR BAG</h2>
         <Box>{`${qty} item${qty === 1 ? "" : "s"}`}</Box>
         <Stack direction={"row"} sx={styles.line}>
           <Box>Total product cost</Box>
@@ -23,18 +27,20 @@ class Resume extends Component {
         </Stack>
         <Stack direction={"row"} sx={styles.line}>
           <Box>Delivery cost</Box>
-          <Box>{`$${total > deliveryFreeFrom ? "FREE" : formatNumber(delivery)}`}</Box>
+          <Box>{`$${total > Config.DELIVERY_FREE_FROM ? "FREE" : formatNumber(delivery)}`}</Box>
         </Stack>
         <Divider />
         <Stack direction={"row"} sx={styles.lineTotal}>
           <Box>Total</Box>
-          <Box>${formatNumber(total + (total > deliveryFreeFrom ? 0 : delivery))}</Box>
+          <Box>${formatNumber(total + (total > Config.DELIVERY_FREE_FROM ? 0 : delivery))}</Box>
         </Stack>
-        <Button onClick={() => this.handleOnClick()} sx={{ flex: 1, mt: 2 }} variant="contained">
-          View bag
-        </Button>
-        <Button onClick={() => this.handleOnClick()} sx={{ flex: 1, mt: 2 }} variant="outlined">
-          Check out
+        <Link to="/bag" style={{ textDecoration: "none" }}>
+          <Button fullWidth onClick={() => this.handleOnClick()} sx={{ flex: 1, mt: 2 }} variant="contained">
+            Check out
+          </Button>
+        </Link>
+        <Button onClick={() => this.handleShopping()} sx={{ flex: 1, mt: 2 }} variant="outlined">
+          Continue shopping
         </Button>
       </Stack>
     );
@@ -43,7 +49,7 @@ class Resume extends Component {
 
 const styles = {
   container: {
-    borderLeft: "1px solid #111",
+    borderLeft: "1px solid #0000001f",
     pl: 2,
     flex: 1,
   },

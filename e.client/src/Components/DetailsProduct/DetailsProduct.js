@@ -11,7 +11,6 @@ import Modal from "@mui/material/Modal";
 
 import Sizes from "./Sizes/Sizes";
 import Colors from "./Colors/Colors";
-import MyModal from "../MyModal/MyModal";
 import ModalAddedItem from "../MyModal/ModalAddedItem";
 
 import * as bagActions from "../../Actions/bagActions";
@@ -83,9 +82,7 @@ class DetailsProduct extends Component {
             <FavoriteBorderIcon />
           </IconButton>
         </Stack>
-        <MyModal title="SUCCESSFULLY ADDED TO BAG!" open={this.state.open} handleClose={() => this.setState({ open: false })}>
-          <ModalAddedItem />
-        </MyModal>
+        <ModalAddedItem open={this.state.open} handleClose={() => this.setState({ open: false })} />
       </Box>
     );
   }

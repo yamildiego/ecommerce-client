@@ -7,11 +7,7 @@ import Box from "@mui/material/Box";
 import * as viewProductActions from "../../../Actions/viewProductActions";
 
 class RowSizes extends Component {
-  handleOnClick = (size) => {
-    console.log("ACA");
-    console.log(size);
-    if (size !== undefined) this.props.dispatch(viewProductActions.setSize(size));
-  };
+  handleOnClick = (size) => (size !== undefined ? this.props.dispatch(viewProductActions.setSize(size)) : "");
 
   render() {
     const { skuData, row, size } = this.props;

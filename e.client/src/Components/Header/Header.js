@@ -24,16 +24,19 @@ const options = [
     id: 1,
     icon: <PersonOutlineIcon />,
     title: "Login/Register",
+    link: "/login",
   },
   {
     id: 2,
     icon: <FavoriteBorderIcon />,
     title: "Wishlist",
+    link: "/bag",
   },
   {
     id: 3,
     icon: <ShoppingBagOutlinedIcon />,
     title: "Bag",
+    link: "/bag",
   },
 ];
 

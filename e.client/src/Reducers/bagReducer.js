@@ -5,6 +5,7 @@ const initialState = {
   qty: 0,
   delivery: 35,
   total: 0,
+  activeStep: 0,
 };
 
 export default function bagReducer(state = initialState, action = {}) {
@@ -15,7 +16,7 @@ export default function bagReducer(state = initialState, action = {}) {
       state.items.forEach((item) => {
         if (item.id === action.item.id && item.size.size === action.item.size.size && item.color.id === action.item.color.id) {
           added = true;
-          items.push({ ...item, qty: item.qty + action.item.qty });
+          items.push({ ...item, qty: Number(item.qty) + Number(action.item.qty) });
         } else items.push(action.item);
       });
 
@@ -24,8 +25,23 @@ export default function bagReducer(state = initialState, action = {}) {
       return {
         ...state,
         items,
-        qty: parseInt(state.qty) + parseInt(action.item.qty),
-        total: state.total + action.item.price * action.item.qty,
+        qty: Number(state.qty) + Number(action.item.qty),
+        total: state.total + action.item.price * Number(action.item.qty),
+      };
+    }
+    case Types.REMOVE_ITEM: {
+      let items = [];
+
+      state.items.forEach((item) => {
+        if (!(item.id === action.item.id && item.size.size === action.item.size.size && item.color.id === action.item.color.id))
+          items.push(action.item);
+      });
+
+      return {
+        ...state,
+        items,
+        qty: Number(state.qty) - Number(action.item.qty),
+        total: state.total - action.item.price * Number(action.item.qty),
       };
     }
     case Types.CHANGE_QTY: {
@@ -33,7 +49,7 @@ export default function bagReducer(state = initialState, action = {}) {
       let oldQty = 0;
       state.items.forEach((item) => {
         if (item.id === action.item.id && item.size.size === action.item.size.size && item.color.id === action.item.color.id) {
-          oldQty = parseInt(item.qty);
+          oldQty = Number(item.qty);
           items.push(action.item);
         } else items.push(action.item);
       });
@@ -41,9 +57,12 @@ export default function bagReducer(state = initialState, action = {}) {
       return {
         ...state,
         items,
-        qty: state.qty - oldQty + parseInt(action.item.qty),
-        total: state.total - oldQty * action.item.price + action.item.price * action.item.qty,
+        qty: Number(state.qty) - Number(oldQty) + Number(action.item.qty),
+        total: Number(state.total) - Number(oldQty * action.item.price) + Number(action.item.price * action.item.qty),
       };
+    }
+    case Types.SET_ACTIVE_STEP: {
+      return { ...state, activeStep: action.activeStep };
     }
     default:
       return state;

@@ -5,7 +5,17 @@ export const addItem = (item) => ({
   item,
 });
 
+export const removeItem = (item) => ({
+  type: Types.REMOVE_ITEM,
+  item,
+});
+
 export const changeQty = (item) => ({
   type: Types.CHANGE_QTY,
   item,
+});
+
+export const setActiveStep = (activeStep) => ({
+  type: Types.SET_ACTIVE_STEP,
+  activeStep,
 });
