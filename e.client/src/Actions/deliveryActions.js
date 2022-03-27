@@ -31,11 +31,11 @@ export const setUrlPayment = (urlPayment) => ({
   urlPayment,
 });
 
-export const reviewAndPay = () => {
+export const reviewAndPay = (items) => {
   return async (dispatch) => {
     dispatch(configActions.setIsLoading(true));
     await server
-      .post(`${Urls.reviewAndPay}`, {})
+      .post(`${Urls.reviewAndPay}`, { items })
       .then((response) => {
         if (response.data.status === "OK") dispatch(setUrlPayment(response.data.url));
       })

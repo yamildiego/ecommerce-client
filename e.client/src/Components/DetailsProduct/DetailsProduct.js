@@ -43,6 +43,7 @@ class DetailsProduct extends Component {
           size: this.props.size,
           qty: 1,
           price: this.props.price.currentPrice,
+          priceId: "priceId" in this.props.price ? this.props.price.priceId : 0,
           colors: this.props.colors,
           dateTime: Date.now(),
         });
@@ -66,7 +67,7 @@ class DetailsProduct extends Component {
     const { title, subtitle, price, skuData, colorways } = this.props.productSelected;
 
     return (
-      <Box sx={{ flex: 1, mt: 3, userSelect: "none" }}>
+      <Box sx={{ flex: 1, mt: 3 }}>
         <Box sx={{ boxShadow: "0 0 2px transparent", pl: 1, pr: 1 }}>
           <Typography variant="h4" sx={{ color: "primary.main", mb: 0 }} gutterBottom component="div">
             {title}

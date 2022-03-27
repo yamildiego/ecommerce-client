@@ -41,7 +41,11 @@ class DataDelivery extends Component {
     this.props.dispatch(deliveryActions.setErrors(errors));
     this.props.dispatch(deliveryActions.setHelperText(helperText));
 
-    if (errors.address === false && errors.email === false && errors.phone === false) this.props.dispatch(deliveryActions.reviewAndPay());
+    if (errors.address === false && errors.email === false && errors.phone === false) {
+      let line_items = [];
+      this.props.items.forEach((item) => line_items.push({ price: item.priceId, quantity: item.qty }));
+      this.props.dispatch(deliveryActions.reviewAndPay(line_items));
+    }
   };
 
   handleSetAddress = (address) => {
@@ -89,6 +93,7 @@ class DataDelivery extends Component {
 
 function mapStateToProps(state, props) {
   return {
+    items: state.bagReducer.items,
     address: state.deliveryReducer.address,
     personal: state.deliveryReducer.personal,
     errors: state.deliveryReducer.errors,
