@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import localforage from "localforage";
 
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -20,6 +21,7 @@ class DetailProductModal extends Component {
       });
 
       this.props.dispatch(bagActions.setItems(items));
+      localforage.setItem("items", items);
     }
   };
 
@@ -31,6 +33,8 @@ class DetailProductModal extends Component {
         items.push(item);
     });
     this.props.dispatch(bagActions.setItems(items));
+    localforage.setItem("items", items);
+
     this.props.close();
   };
 

@@ -12,7 +12,7 @@ class ListYourBag extends Component {
     return (
       <Box>
         <Stack direction={"row"}>
-          <h1 style={{ marginBottom: 0 }}>{`YOUR BAG ${qty === 0 ? "IS EMPTY" : ""}`}</h1>
+          <h1 style={{ marginBottom: 0, fontFamily: "monospace" }}>{`YOUR BAG ${qty === 0 ? "IS EMPTY" : ""}`}</h1>
           {qty > 0 && <Box sx={{ fontSize: "14px", mt: 4.5, ml: 1 }}>{`TOTAL ${qty} item${qty === 1 ? "" : "s"}`}</Box>}
         </Stack>
         {items.length > 0 &&

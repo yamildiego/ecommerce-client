@@ -6,16 +6,12 @@ import ScreenLayout from "./ScreenLayout";
 import Backgrounds from "../Components/Home/Backgrounds";
 import Categories from "../Components/Home/Categories";
 
-import Test from "./Test";
-
 class Home extends Component {
   render() {
     return (
       <ScreenLayout>
-        ACAs
-        <Test />
-        {/* <Backgrounds /> */}
-        {/* <Categories /> */}
+        <Backgrounds />
+        <Categories />
       </ScreenLayout>
     );
   }

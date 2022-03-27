@@ -1,26 +1,35 @@
 import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
+import localforage from "localforage";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import ScrollToTop from "../Components/ScrollToTop";
 
+import HOCForRouteProps from "./HOCForRouteProps";
 import Home from "../Screens/Home";
 import Shop from "../Screens/Shop";
 import ViewItem from "../Screens/ViewItem";
 import Bag from "../Screens/Bag";
 import Delivery from "../Screens/Delivery";
+import Payment from "../Screens/Payment";
+import Login from "../Screens/Login";
 
 import withParamsAndNavigate from "../Functions/withParamsAndNavigate";
 
 import * as configActions from "../Actions/configActions";
+import * as bagActions from "../Actions/bagActions";
+import * as deliveryActions from "../Actions/deliveryActions";
 
 class App extends Component {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
+    localforage.getItem("items", (err, items) => this.props.dispatch(bagActions.setItems(items)));
+    localforage.getItem("address", (err, address) => this.props.dispatch(deliveryActions.setAddress(address)));
+    localforage.getItem("personal", (err, personal) => this.props.dispatch(deliveryActions.setPersonal(personal)));
   }
 
   componentWillUnmount() {
@@ -37,12 +46,14 @@ class App extends Component {
         <CssBaseline />
         <ScrollToTop>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/Shop" element={<Shop />} />
-            <Route path="/Shop/:filter" element={<Shop />} />
-            <Route path="/View/:cloudProductId" element={<ViewItem />} />
-            <Route path="/Bag" element={<Bag />} />
-            <Route path="/Delivery" element={<Delivery />} />
+            <Route exact path="/" element={<HOCForRouteProps Component={Home} />} />
+            <Route path="/Shop" element={<HOCForRouteProps Component={Shop} />} />
+            <Route path="/Shop/:filter" element={<HOCForRouteProps Component={Shop} />} />
+            <Route path="/View/:cloudProductId" element={<HOCForRouteProps Component={ViewItem} />} />
+            <Route path="/Bag" element={<HOCForRouteProps Component={Bag} />} />
+            <Route path="/Delivery" element={<HOCForRouteProps Component={Delivery} />} />
+            <Route path="/Payment" element={<HOCForRouteProps Component={Payment} />} />
+            <Route path="/Login" element={<HOCForRouteProps Component={Login} />} />
           </Routes>
         </ScrollToTop>
       </ThemeProvider>

@@ -38,3 +38,10 @@ export const SHOW_ERRORS = "SHOW_ERRORS";
 //Bag
 export const SET_ITEMS = "SET_ITEMS";
 export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP";
+
+//Delivery
+export const SET_ADDRESS = "SET_ADDRESS";
+export const SET_PERSONAL = "SET_PERSONAL";
+export const SET_ERRORS_DELIVERY = "SET_ERRORS_DELIVERY";
+export const SET_ERRORS_HELPERTEXT = "SET_ERRORS_HELPERTEXT";
+export const SET_URL_PAYMENT = "SET_URL_PAYMENT";

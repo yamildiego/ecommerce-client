@@ -30,7 +30,7 @@ class Bag extends Component {
               {this.props.items.length > 0 && (
                 <Link to="/delivery" style={{ textDecoration: "none" }}>
                   <Button fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
-                    Check out
+                    Continue
                   </Button>
                 </Link>
               )}
@@ -40,7 +40,7 @@ class Bag extends Component {
                 {this.props.items.length > 0 && (
                   <Link to="/delivery" style={{ textDecoration: "none" }}>
                     <Button fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
-                      Check out
+                      Continue
                     </Button>
                   </Link>
                 )}

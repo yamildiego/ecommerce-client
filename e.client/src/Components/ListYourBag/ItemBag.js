@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import localforage from "localforage";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -19,6 +20,7 @@ class ItemBag extends Component {
       });
 
       this.props.dispatch(bagActions.setItems(items));
+      localforage.setItem("items", items);
     }
   };
 
@@ -30,6 +32,7 @@ class ItemBag extends Component {
         items.push(item);
     });
     this.props.dispatch(bagActions.setItems(items));
+    localforage.setItem("items", items);
   };
 
   render() {
