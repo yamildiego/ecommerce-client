@@ -24,7 +24,7 @@ class MyStepper extends Component {
               <Step key={index}>
                 <StepLabel sx={{ cursor: "default", userSelect: "none" }}>
                   {this.props.activeStep > index && (
-                    <Link style={styles.link} to={step.to}>
+                    <Link style={styles.link} to={this.props.allDisabled ? "" : step.to}>
                       {step.label}
                     </Link>
                   )}

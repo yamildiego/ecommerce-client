@@ -17,6 +17,8 @@ import Bag from "../Screens/Bag";
 import Delivery from "../Screens/Delivery";
 import Payment from "../Screens/Payment";
 import Login from "../Screens/Login";
+import Canceled from "../Screens/Canceled";
+import Success from "../Screens/Success";
 
 import withParamsAndNavigate from "../Functions/withParamsAndNavigate";
 
@@ -62,6 +64,8 @@ class App extends Component {
             <Route path="/Delivery" element={<HOCForRouteProps Component={Delivery} />} />
             <Route path="/Payment" element={<HOCForRouteProps Component={Payment} />} />
             <Route path="/Login" element={<HOCForRouteProps Component={Login} />} />
+            <Route path="/Canceled" element={<HOCForRouteProps Component={Canceled} />} />
+            <Route path="/Success" element={<HOCForRouteProps Component={Success} />} />
           </Routes>
           <Errors errors={this.props.errors} />
         </ScrollToTop>

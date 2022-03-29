@@ -1,8 +1,11 @@
 import * as Types from "../Reducers/Types";
 
+const initialStateAddress = { address: "", suburb: "", state: "", postcode: "" };
+const initialStatePersonal = { email: "", phone: "" };
+
 const initialState = {
-  address: { address: "", suburb: "", state: "", postcode: "" },
-  personal: { email: "", phone: "" },
+  address: { ...initialStateAddress },
+  personal: { ...initialStatePersonal },
   errors: { email: false, phone: false, address: false },
   helperText: { email: "", phone: "", address: "" },
   urlPayment: null,
@@ -24,6 +27,9 @@ export default function deliveryReducer(state = initialState, action = {}) {
     }
     case Types.SET_URL_PAYMENT: {
       return { ...state, urlPayment: action.urlPayment };
+    }
+    case Types.INIT_DELIVERY: {
+      return { ...state, address: { ...initialStateAddress }, personal: { ...initialStatePersonal } };
     }
     default:
       return state;

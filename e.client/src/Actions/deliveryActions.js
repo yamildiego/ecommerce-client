@@ -3,11 +3,15 @@ import * as Config from "../Constants/Config";
 import * as Urls from "../Constants/Urls";
 import * as Errors from "../Constants/Errors";
 import axios from "axios";
+import localforage from "localforage";
 
 import * as configActions from "./configActions";
-import * as bagActions from "./bagActions";
 
 const server = axios.create({ withCredentials: true });
+
+export const initDelivery = () => ({
+  type: Types.INIT_DELIVERY,
+});
 
 export const setAddress = (address) => ({
   type: Types.SET_ADDRESS,
@@ -34,14 +38,18 @@ export const setUrlPayment = (urlPayment) => ({
   urlPayment,
 });
 
-export const reviewAndPay = (items, total) => {
+export const reviewAndPay = (personal, address, items, total) => {
   return async (dispatch) => {
     dispatch(configActions.setIsLoading(true));
     await server
-      .post(`${Urls.reviewAndPay}`, { items, freeShipping: total >= Config.DELIVERY_FREE_FROM })
+      .post(`${Urls.reviewAndPay}`, { items, personal, address, freeShipping: total >= Config.DELIVERY_FREE_FROM })
       .then((response) => {
         dispatch(configActions.setIsLoading(false));
-        if (response.data.status === "OK") dispatch(setUrlPayment(response.data.url));
+        if (response.data.status === "OK") {
+          dispatch(setUrlPayment(response.data.url));
+          localforage.setItem("orderNumber", response.data.orderNumber);
+        }
+
         if (response.data.status === "ERROR")
           dispatch(configActions.addError({ severity: "error", title: "Error connection", description: Errors.NO_CONECTION_STRIPE }));
       })

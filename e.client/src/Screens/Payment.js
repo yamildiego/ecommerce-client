@@ -26,7 +26,7 @@ class Payment extends Component {
         total += item.price * item.qty;
       });
 
-      this.props.dispatch(deliveryActions.reviewAndPay(line_items, total));
+      this.props.dispatch(deliveryActions.reviewAndPay(this.props.personal, this.props.address, line_items, total));
       this.runTimer();
     }
   }
