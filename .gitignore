@@ -6,6 +6,7 @@
 
 /e.client/package-lock.json
 /e.server/package-lock.json
+/e.server/.env
 
 /.pnp
 .pnp.js

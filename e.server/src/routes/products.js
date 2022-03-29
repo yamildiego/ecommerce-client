@@ -4,22 +4,6 @@ const router = express.Router();
 const Product = require("../models/Product");
 var ObjectId = require("mongodb").ObjectID;
 
-router.get("/test", async (req, res) => {
-  let cat = [];
-  Product.find({}, (err, docs) => {
-    docs.forEach((doc) => {
-      console.log(doc.gender);
-      cat = cat.concat(doc.genders);
-      // if (!cat.includes(doc.category)) cat.push(doc.category);
-      // if (!cat.includes(doc.category)) cat.push(doc.category);
-    });
-
-    let items = [...new Set(cat)];
-
-    res.send({ status: "OK", items });
-  });
-});
-
 router.post("/getProduct", async (req, res) => {
   let dataPost = { ...req.body };
   Product.find({ cloudProductId: dataPost.cloudProductId }, (err, docs) => {
@@ -47,7 +31,7 @@ router.post("/", async (req, res) => {
   }
 
   if (dataPost.filter["category"].length > 0) realFilters.push({ category: { $in: dataPost.filter["category"] } });
-  if (dataPost.filter["onSale"].length > 0) realFilters.push({ isOnSale: true });
+  if (dataPost.filter["onSale"] && dataPost.filter["onSale"].length > 0) realFilters.push({ isOnSale: true });
 
   const options = {
     page: dataPost.filter.page ? dataPost.filter.page : 1,

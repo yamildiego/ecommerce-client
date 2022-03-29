@@ -15,6 +15,7 @@ const ProductSchema = mongoose.Schema({
   cloudProductId: String,
   isOnSale: Boolean,
   price: {
+    priceId: String,
     currentPrice: Number,
     fullPrice: Number,
   },
