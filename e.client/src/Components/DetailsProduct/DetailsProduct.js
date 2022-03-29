@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Modal from "@mui/material/Modal";
 
 import Sizes from "./Sizes/Sizes";
 import Colors from "./Colors/Colors";

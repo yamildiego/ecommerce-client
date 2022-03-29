@@ -17,7 +17,7 @@ class Delivery extends Component {
   }
 
   componentDidUpdate(oldProps) {
-    if (this.props.items.length == 0) this.props.navigate("/bag");
+    if (this.props.items.length === 0) this.props.navigate("/bag");
   }
 
   render() {

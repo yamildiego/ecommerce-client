@@ -5,6 +5,7 @@
 /e.server/node_modules
 
 /e.client/package-lock.json
+/e.client/build
 /e.server/package-lock.json
 /e.server/.env
 

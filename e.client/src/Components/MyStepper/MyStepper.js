@@ -18,7 +18,7 @@ class MyStepper extends Component {
   render() {
     return (
       <Box sx={{ width: "100%", backgroundColor: "#e0e0e0", p: 2, borderRadius: 2 }}>
-        <Stepper activeStep={this.props.activeStep}>
+        <Stepper activeStep={this.props.activeStep} alternativeLabel>
           {steps.map((step, index) => {
             return (
               <Step key={index}>

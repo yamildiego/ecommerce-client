@@ -14,7 +14,7 @@ const ScreenLayout = (props) => {
       {props.limitWidth && (
         <Stack
           direction={"column"}
-          sx={size === "S" ? { ml: 2, mr: 2 } : { width: size === "L" ? "1000px" : "600px", ml: 2, mr: 2, margin: "auto" }}
+          sx={size === "S" ? { ml: 0, mr: 0 } : { width: size === "L" ? "1000px" : "auto", ml: 2, mr: 2, margin: "auto" }}
         >
           {props.children}
         </Stack>

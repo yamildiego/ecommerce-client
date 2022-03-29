@@ -19,7 +19,7 @@ class Bag extends Component {
   }
 
   render() {
-    const { qty, size } = this.props;
+    const { size } = this.props;
     return (
       <ScreenLayout limitWidth={true}>
         <Box sx={{ pl: 2, pr: 2 }}>
@@ -36,15 +36,16 @@ class Bag extends Component {
               )}
             </Box>
             <Box sx={{ width: "350px" }}>
-              <Box sx={{ height: "77px" }}>
-                {this.props.items.length > 0 && (
+              {this.props.items.length > 0 && (
+                <Box sx={{ height: "77px" }}>
                   <Link to="/delivery" style={{ textDecoration: "none" }}>
                     <Button fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
                       Continue
                     </Button>
                   </Link>
-                )}
-              </Box>
+                </Box>
+              )}
+              {this.props.items.length === 0 && (this.props.size === "L" || this.props.size === "M") && <Box sx={{ height: "77px" }}></Box>}
               <OrderSumary />
             </Box>
           </Stack>

@@ -19,13 +19,13 @@ const categories = [
 class Categories extends Component {
   render() {
     return (
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", ml: 4, mr: 4 }}>
+      <Box sx={{ ...styles.container, flexDirection: this.props.size === "S" ? "column" : "row" }}>
         {categories.map((category, index) => {
           return (
-            <Link key={index} variant="contained" to={"/Shop/" + category.id} style={{ textDecoration: "none" }}>
-              <Box sx={{ margin: 2, position: "relative", cursor: "pointer" }}>
-                <img src={category.src} alt={category.title} loading="lazy" style={{ width: "100%" }} />
-                <Button sx={{ position: "absolute", bottom: "8%", zIndex: 100, left: "40%" }} variant="contained">
+            <Link key={index} variant="contained" to={"/Shop/" + category.id} style={styles.link}>
+              <Box sx={styles.containerImage}>
+                <img src={category.src} alt={category.title} loading="lazy" style={styles.image} />
+                <Button sx={styles.btn} variant="contained">
                   {category.title}
                 </Button>
               </Box>
@@ -37,8 +37,37 @@ class Categories extends Component {
   }
 }
 
+const styles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    ml: 4,
+    mr: 4,
+  },
+  link: {
+    textDecoration: "none",
+  },
+  containerImage: {
+    margin: 2,
+    position: "relative",
+    cursor: "pointer",
+  },
+  image: {
+    width: "100%",
+  },
+  btn: {
+    position: "absolute",
+    bottom: "8%",
+    zIndex: 100,
+    left: "50%",
+    transform: "translateX(-50%)",
+  },
+};
+
 function mapStateToProps(state, props) {
-  return {};
+  return {
+    size: state.configReducer.dimensions.size,
+  };
 }
 
 export default connect(mapStateToProps)(Categories);

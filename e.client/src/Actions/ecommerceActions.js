@@ -1,6 +1,9 @@
 import * as Types from "../Reducers/Types";
 import * as Urls from "../Constants/Urls";
+import * as Errors from "../Constants/Errors";
 import axios from "axios";
+
+import * as configActions from "./configActions";
 
 const server = axios.create({ withCredentials: true });
 
@@ -62,7 +65,7 @@ export const loadProducts = (filter, sort) => {
         }
       })
       .catch((error) => {
-        console.log("loadProducts");
+        dispatch(configActions.addError({ severity: "error", title: "Error connection loadProducts", description: Errors.NO_CONECTION }));
       });
   };
 };

@@ -85,7 +85,6 @@ class Subheader extends Component {
               zIndex: 15,
               position: "absolute",
               width: "100%",
-              minWidth: "450px",
               borderTop: "1px solid #DDD",
               boxShadow: "0 3px 3px #ddd",
             }}

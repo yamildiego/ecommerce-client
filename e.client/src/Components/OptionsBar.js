@@ -23,6 +23,9 @@ import * as ecommerceActions from "../Actions/ecommerceActions";
 
 class OptionsBar extends Component {
   state = { expanded: false };
+  componentDidMount() {
+    if (this.props.size === "S" || this.props.size === "M") this.props.dispatch(appActions.toggleFilter(false));
+  }
 
   toggleFilter = () => {
     this.props.dispatch(appActions.toggleFilter());
@@ -95,7 +98,7 @@ class OptionsBar extends Component {
           sx={{ fontWeight: fontWeightShow }}
           onClick={this.toggleFilter}
           variant="inherit"
-          endIcon={this.props.filterOpen ? <FilterAltOffIcon /> : <FilterAltIcon />}
+          endIcon={this.props.filterOpen ? <FilterAltOffIcon sx={{ mr: 1 }} /> : <FilterAltIcon sx={{ mr: 1 }} />}
         >
           {(size === "M" || size === "L") && (
             <React.Fragment>

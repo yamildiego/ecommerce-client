@@ -19,7 +19,7 @@ const Errors = (props) => {
         <TransitionGroup>
           {props.errors.map((error, index) => (
             <Collapse key={index}>
-              <Alert sx={styles.error} severity={error.severity}>
+              <Alert sx={{ ...styles.error, width: props.size === "S" ? "368px" : "450px" }} severity={error.severity}>
                 <AlertTitle>{error.title}</AlertTitle>
                 {error.description}
                 <Box onClick={() => close(error.key)} sx={styles.close}>
@@ -42,13 +42,12 @@ const styles = {
     transform: "translateX(-50%)",
     margin: "auto",
     height: "100vh",
-    zIndex: 15,
+    zIndex: 220,
     mt: 1,
   },
   error: {
     position: "relative",
     mt: "10px",
-    width: "450px",
   },
   close: {
     position: "absolute",
@@ -60,7 +59,9 @@ const styles = {
 };
 
 function mapStateToProps(state, props) {
-  return {};
+  return {
+    size: state.configReducer.dimensions.size,
+  };
 }
 
 export default connect(mapStateToProps)(Errors);
