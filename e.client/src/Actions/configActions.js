@@ -17,3 +17,13 @@ export const setDimensions = (dimensions) => ({
   type: Types.SET_DIMENSIONS,
   dimensions,
 });
+
+export const addError = (error) => ({
+  type: Types.ADD_ERROR,
+  error,
+});
+
+export const removeError = (key) => ({
+  type: Types.REMOVE_ERROR,
+  key,
+});

@@ -4,6 +4,7 @@ import localforage from "localforage";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import AddressData from "./AddressData";
 import PersonalData from "./PersonalData";
@@ -42,9 +43,7 @@ class DataDelivery extends Component {
     this.props.dispatch(deliveryActions.setHelperText(helperText));
 
     if (errors.address === false && errors.email === false && errors.phone === false) {
-      let line_items = [];
-      this.props.items.forEach((item) => line_items.push({ price: item.priceId, quantity: item.qty }));
-      this.props.dispatch(deliveryActions.reviewAndPay(line_items));
+      this.props.navigate("/payment");
     }
   };
 
@@ -58,38 +57,52 @@ class DataDelivery extends Component {
     localforage.setItem("personal", personal);
   };
 
-  componentDidUpdate(oldProps) {
-    if (oldProps.urlPayment !== this.props.urlPayment && this.props.urlPayment !== null) {
-      const newWindow = window.open(this.props.urlPayment, "_blank", "noopener,noreferrer");
-      if (newWindow) newWindow.opener = null;
-    }
-  }
-
   render() {
     return (
-      <Box sx={{ backgroundColor: "white", flex: 1, mt: 1, mb: 1, p: 2, border: "1px solid #ddd" }}>
-        <h1 style={{ margin: 0, fontFamily: "monospace" }}>{`DELIVERY ADDRESS`}</h1>
+      <Box sx={{ backgroundColor: "white", flex: 1, mt: 1, mb: 1, p: 2, border: "1px solid #ddd", position: "relative" }}>
+        {this.props.isLoading && (
+          <Box sx={styles.loadingContainer}>
+            <Box sx={styles.loading}>
+              <CircularProgress />
+            </Box>
+          </Box>
+        )}
+        <h1 style={{ margin: 0, fontFamily: "monospace", userSelect: "none" }}>{`DELIVERY ADDRESS`}</h1>
         <AddressData
           {...this.props.address}
           handleSetAddress={this.handleSetAddress}
           error={this.props.errors.address}
           helperText={this.props.helperText.address}
+          isLoading={this.props.isLoading}
         />
-        <h1 style={{ marginBottom: 0, fontFamily: "monospace" }}>{`GUEST CHECKOUT`}</h1>
+        <h1 style={{ marginBottom: 0, fontFamily: "monospace", userSelect: "none" }}>{`GUEST CHECKOUT`}</h1>
         <Box sx={{ fontSize: "12px" }}>We'll use these details to keep you informed on your delivery.</Box>
-        <PersonalData
-          {...this.props.personal}
-          handleSetPersonal={this.handleSetPersonal}
-          errors={this.props.errors}
-          helperText={this.props.helperText}
-        />
-        <Button onClick={this.handleOnClick} fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
+        <PersonalData handleSetPersonal={this.handleSetPersonal} />
+        <Button disabled={this.props.isLoading} onClick={this.handleOnClick} fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
           Review and Pay
         </Button>
       </Box>
     );
   }
 }
+
+const styles = {
+  loadingContainer: {
+    m: -2,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#dddddddd",
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loading: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+};
 
 function mapStateToProps(state, props) {
   return {

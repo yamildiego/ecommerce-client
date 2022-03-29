@@ -64,11 +64,12 @@ class CheckoutForm extends Component {
             inputRef={address_line_1}
             error={this.props.error}
             helperText={this.props.error ? this.props.helperText : ""}
+            disabled={this.props.isLoading}
           />
         </Box>
         {this.props.address && (
           <Box>
-            <Link sx={{ cursor: "pointer" }} onClick={this.cleanAddress}>
+            <Link sx={{ cursor: "pointer", userSelect: "none" }} onClick={this.cleanAddress}>
               Change address
             </Link>
             <TextField

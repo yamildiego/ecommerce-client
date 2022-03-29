@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import TextField from "@mui/material/TextField";
 
 const PersonalData = (props) => {
-  const setEmail = (email) => props.handleSetPersonal({ phone: props.phone, email });
-  const setPhone = (phone) => props.handleSetPersonal({ email: props.email, phone });
-
+  const setEmail = (email) => props.handleSetPersonal({ phone: props.personal.phone, email });
+  const setPhone = (phone) => props.handleSetPersonal({ email: props.personal.email, phone });
+  const { personal, errors, helperText, isLoading } = props;
   return (
     <React.Fragment>
       <TextField
@@ -16,10 +16,11 @@ const PersonalData = (props) => {
         label="Email"
         type="text"
         id="email"
-        value={props.email}
+        value={personal.email}
         onChange={(e) => setEmail(e.target.value)}
-        error={props.errors.email}
-        helperText={props.errors.email ? props.helperText.email : ""}
+        error={errors.email}
+        helperText={errors.email ? helperText.email : ""}
+        disabled={isLoading}
       />
 
       <TextField
@@ -29,17 +30,23 @@ const PersonalData = (props) => {
         label="Phone"
         type="text"
         id="phone"
-        value={props.phone}
+        value={personal.phone}
         onChange={(e) => setPhone(e.target.value)}
-        error={props.errors.phone}
-        helperText={props.errors.phone ? props.helperText.phone : ""}
+        error={errors.phone}
+        helperText={errors.phone ? helperText.phone : ""}
+        disabled={isLoading}
       />
     </React.Fragment>
   );
 };
 
 function mapStateToProps(state, props) {
-  return {};
+  return {
+    personal: state.deliveryReducer.personal,
+    errors: state.deliveryReducer.errors,
+    helperText: state.deliveryReducer.helperText,
+    isLoading: state.configReducer.isLoading,
+  };
 }
 
 export default connect(mapStateToProps)(PersonalData);

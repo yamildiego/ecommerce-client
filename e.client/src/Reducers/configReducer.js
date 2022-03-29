@@ -20,6 +20,7 @@ const initialState = {
     },
     shape: { borderRadius: 1 },
   },
+  errors: [],
 };
 
 export default function appReducer(state = initialState, action = {}) {
@@ -35,6 +36,19 @@ export default function appReducer(state = initialState, action = {}) {
     }
     case Types.SET_DIMENSIONS: {
       return { ...state, dimensions: { ...action.dimensions, size: getSize(action.dimensions.width) } };
+    }
+    case Types.ADD_ERROR: {
+      let errors = [...state.errors];
+      errors.push({ key: Math.random(), ...action.error, datetime: Date.now(), opacity: 1 });
+      return { ...state, errors };
+    }
+    case Types.REMOVE_ERROR: {
+      let errors = [];
+      state.errors.forEach((error) => {
+        if (error.key !== action.key) errors.push(error);
+      });
+
+      return { ...state, errors };
     }
     default:
       return state;

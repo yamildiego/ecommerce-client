@@ -6,7 +6,8 @@ import localforage from "localforage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import ScrollToTop from "../Components/ScrollToTop";
+import ScrollToTop from "./ScrollToTop";
+import Errors from "./Errors";
 
 import HOCForRouteProps from "./HOCForRouteProps";
 import Home from "../Screens/Home";
@@ -27,14 +28,21 @@ class App extends Component {
   componentDidMount() {
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
-    localforage.getItem("items", (err, items) => this.props.dispatch(bagActions.setItems(items)));
-    localforage.getItem("address", (err, address) => this.props.dispatch(deliveryActions.setAddress(address)));
-    localforage.getItem("personal", (err, personal) => this.props.dispatch(deliveryActions.setPersonal(personal)));
+    localforage.getItem("items", (err, items) => (items ? this.props.dispatch(bagActions.setItems(items)) : ""));
+    localforage.getItem("address", (err, address) => (address ? this.props.dispatch(deliveryActions.setAddress(address)) : ""));
+    localforage.getItem("personal", (err, personal) => (personal ? this.props.dispatch(deliveryActions.setPersonal(personal)) : ""));
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindowDimensions);
   }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.errors !== this.props.errors) {
+    }
+  }
+
+  cleanError = (error) => {};
 
   updateWindowDimensions = () => this.props.dispatch(configActions.setDimensions({ width: window.innerWidth, height: window.innerHeight }));
 
@@ -55,6 +63,7 @@ class App extends Component {
             <Route path="/Payment" element={<HOCForRouteProps Component={Payment} />} />
             <Route path="/Login" element={<HOCForRouteProps Component={Login} />} />
           </Routes>
+          <Errors errors={this.props.errors} />
         </ScrollToTop>
       </ThemeProvider>
     );
@@ -63,6 +72,7 @@ class App extends Component {
 
 function mapStateToProps(state, props) {
   return {
+    errors: state.configReducer.errors,
     theme: state.configReducer.theme,
     user: state.apiReducer.user,
   };
