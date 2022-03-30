@@ -89,7 +89,7 @@ class DetailsProduct extends Component {
           <h4 style={{ marginBottom: 0, color: this.props.showErrors ? "red" : "#000000de" }}>Available sizes</h4>
           <Sizes skuData={skuData} />
         </Box>
-        <Stack direction={"row"} sx={{ mt: 1 }}>
+        <Stack direction={"row"} sx={{ mt: 1, pl: 1, pr: 1 }}>
           <Button onClick={() => this.handleOnClick()} sx={{ flex: 1 }} variant="contained">
             Add to bag
           </Button>

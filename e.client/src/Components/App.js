@@ -39,11 +39,6 @@ class App extends Component {
     window.removeEventListener("resize", this.updateWindowDimensions);
   }
 
-  componentDidUpdate(oldProps) {
-    if (oldProps.errors !== this.props.errors) {
-    }
-  }
-
   cleanError = (error) => {};
 
   updateWindowDimensions = () => this.props.dispatch(configActions.setDimensions({ width: window.innerWidth, height: window.innerHeight }));

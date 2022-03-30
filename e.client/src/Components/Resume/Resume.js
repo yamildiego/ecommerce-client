@@ -16,9 +16,9 @@ class Resume extends Component {
   handleShopping = () => this.props.close();
 
   render() {
-    const { total, qty, delivery } = this.props;
+    const { total, qty, delivery, size } = this.props;
     return (
-      <Stack direction={"column"} sx={styles.container}>
+      <Stack direction={"column"} sx={{ ...styles.container, borderLeft: size === "S" ? 0 : "1px solid #0000001f" }}>
         <h2 style={styles.title}>YOUR BAG</h2>
         <Box>{`${qty} item${qty === 1 ? "" : "s"}`}</Box>
         <Stack direction={"row"} sx={styles.line}>
@@ -51,7 +51,6 @@ class Resume extends Component {
 
 const styles = {
   container: {
-    borderLeft: "1px solid #0000001f",
     pl: 2,
     flex: 1,
   },
@@ -74,6 +73,7 @@ function mapStateToProps(state, props) {
     total: state.bagReducer.total,
     qty: state.bagReducer.qty,
     delivery: state.bagReducer.delivery,
+    size: state.configReducer.dimensions.size,
   };
 }
 

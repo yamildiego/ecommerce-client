@@ -36,11 +36,11 @@ class ItemBag extends Component {
   };
 
   render() {
-    const { item } = this.props;
+    const { item, size } = this.props;
     return (
       <Box sx={styles.container}>
-        <Stack direction={"row"}>
-          <Box sx={{ maxWidth: "200px" }}>
+        <Stack direction={size === "S" ? "column" : "row"}>
+          <Box sx={{ maxWidth: "200px", margin: "auto" }}>
             <img src={item.color.src} alt="" style={{ width: "100%", height: "100%" }} />
           </Box>
           <Box sx={{ p: 2, flex: 1, position: "relative" }}>
@@ -108,6 +108,7 @@ const styles = {
 function mapStateToProps(state, props) {
   return {
     items: state.bagReducer.items,
+    size: state.configReducer.dimensions.size,
   };
 }
 

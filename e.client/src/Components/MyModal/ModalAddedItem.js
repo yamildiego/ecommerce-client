@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -9,19 +10,15 @@ import DetailProductModal from "./DetailProductModal";
 
 class ModalAddedItem extends Component {
   render() {
+    const { size } = this.props;
     return (
-      <Modal
-        open={this.props.open}
-        onClose={this.props.handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={styles.modal}>
+      <Modal open={this.props.open} onClose={this.props.handleClose}>
+        <Box sx={{ ...styles.modal, width: size === "S" ? 350 : 700 }}>
           <Box onClick={this.props.handleClose} sx={styles.close}>
             X
           </Box>
           <h2 style={styles.title}>{"SUCCESSFULLY ADDED TO BAG!"}</h2>
-          <Stack direction={"row"} sx={styles.container}>
+          <Stack direction={size === "S" ? "column" : "row"} sx={styles.container}>
             <DetailProductModal close={this.props.handleClose} />
             <Resume close={this.props.handleClose} />
           </Stack>
@@ -46,18 +43,23 @@ const styles = {
   },
   modal: {
     position: "absolute",
-    top: "30%",
+    top: "2%",
     left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 700,
+    transform: "translateX(-50%)",
+
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
     p: 2,
   },
   title: {
     margin: 0,
+    fontSize: "1.2rem",
   },
 };
 
-export default ModalAddedItem;
+function mapStateToProps(state, props) {
+  return {
+    size: state.configReducer.dimensions.size,
+  };
+}
+export default connect(mapStateToProps)(ModalAddedItem);

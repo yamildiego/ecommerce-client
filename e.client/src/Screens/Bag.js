@@ -25,9 +25,9 @@ class Bag extends Component {
         <Box sx={{ pl: 2, pr: 2 }}>
           <MyStepper />
           <Stack direction={size === "S" ? "column" : "row"} sx={{ justifyContent: "space-between" }}>
-            <Box sx={{ backgroundColor: "white", flex: 1, pr: 2 }}>
+            <Box sx={{ backgroundColor: "white", flex: 1, pr: size === "S" ? 0 : 2 }}>
               <ListYourBag />
-              {this.props.items.length > 0 && (
+              {this.props.items.length > 0 && size !== "S" && (
                 <Link to="/delivery" style={{ textDecoration: "none" }}>
                   <Button fullWidth sx={{ flex: 1, mt: 2 }} variant="contained">
                     Continue
@@ -35,7 +35,7 @@ class Bag extends Component {
                 </Link>
               )}
             </Box>
-            <Box sx={{ width: "350px" }}>
+            <Box>
               {this.props.items.length > 0 && (
                 <Box sx={{ height: "77px" }}>
                   <Link to="/delivery" style={{ textDecoration: "none" }}>
