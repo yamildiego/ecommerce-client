@@ -7,7 +7,7 @@ const routesApi = require("./src/routes/api");
 const routesProducts = require("./src/routes/products");
 const config = require("./config");
 
-let svr = config.IS_PRODUCTION ? "/svr_2" : "";
+let svr = config.IS_PRODUCTION ? "/server_0" : "";
 
 mongoose
   .connect(config.IS_PRODUCTION ? config.SERVER_MONGODB_CONNECTION : config.LOCAL_MONGODB_CONNECTION, { useNewUrlParser: true })

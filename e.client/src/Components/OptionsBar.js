@@ -16,8 +16,6 @@ import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Collapse from "@mui/material/Collapse";
 
-import Pagination from "./../Components/Pagination";
-
 import * as appActions from "../Actions/appActions";
 import * as ecommerceActions from "../Actions/ecommerceActions";
 
@@ -43,7 +41,7 @@ class OptionsBar extends Component {
   };
 
   render() {
-    const { sortsStructures, sort, products, size } = this.props;
+    const { sortsStructures, sort, size } = this.props;
     const fontWeightSort = sort !== null ? 500 : 100;
     const fontWeightShow = !this.props.filterOpen ? 500 : 100;
     return (
@@ -119,7 +117,6 @@ function mapStateToProps(state, props) {
     sort: state.ecommerceReducer.sort,
     sortsStructures: state.ecommerceReducer.sortsStructures,
     showReset: state.ecommerceReducer.showReset,
-    products: state.ecommerceReducer.products,
     size: state.configReducer.dimensions.size,
   };
 }

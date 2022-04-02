@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Carousel } from "react-responsive-carousel";
 import { isMobile } from "react-device-detect";
 
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -53,7 +53,7 @@ class Item extends Component {
               selectedItem={this.state.currentImageIndex}
             >
               {product.colorways.map((color, i) => {
-                return <img key={i} style={{}} src={color.images.squarishURL} />;
+                return <img key={i} alt={product.title} src={color.images.squarishURL} />;
               })}
             </Carousel>
             <Box>
@@ -72,7 +72,7 @@ class Item extends Component {
                     onMouseEnter={() => this.handleOnMouseEnter(i)}
                     onMouseOut={this.handleOnMouseOut}
                   >
-                    <img src={color.images.squarishURL} alt={"Config.NAME"} loading="lazy" style={{ width: "100%", maxWidth: "35px" }} />
+                    <img src={color.images.squarishURL} alt={product.title} loading="lazy" style={{ width: "100%", maxWidth: "35px" }} />
                   </LinkBox>
                 );
               })}

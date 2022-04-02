@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function useRecursiveTimeout<T>(callback: () => Promise<T> | (() => void), delay: number | null) {
   const savedCallback = useRef(callback);
