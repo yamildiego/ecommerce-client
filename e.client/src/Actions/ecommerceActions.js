@@ -52,11 +52,11 @@ export const setTotalPages = (totalPages) => ({
   totalPages,
 });
 
-export const loadProducts = (filter, sort) => {
+export const loadProducts = (filter, search, sort) => {
   return async (dispatch) => {
     dispatch(setIsLoading(true));
     await server
-      .post(`${Urls.loadProducts}`, { filter, sort })
+      .post(`${Urls.loadProducts}`, { filter, search, sort })
       .then((response) => {
         if (response.data.status === "OK") {
           dispatch(setProducts(response.data.items));

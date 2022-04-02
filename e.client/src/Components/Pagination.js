@@ -21,7 +21,7 @@ class Pagination extends Component {
         />
         {[...Array(this.props.totalPages + 1)].map((row, i) => (
           <React.Fragment key={i}>
-            {i !== 0 && (
+            {i !== 0 && (i === this.props.page - 1 || i === this.props.page + 1 || i === this.props.page) && (
               <CreateLink i={i} label={i} totalPages={this.props.totalPages} page={this.props.page} onClick={() => this.handleOnClick(i)} />
             )}
           </React.Fragment>
@@ -44,18 +44,22 @@ const CreateLink = (props) => {
       {(props.i <= 0 || props.i > props.totalPages || props.page === props.i) && (
         <React.Fragment>
           {props.page === props.i && (
-            <Link sx={{ p: 2, userSelect: "none", color: "#222", textDecoration: "none", cursor: "default", fontWeight: "bold" }}>
+            <Link
+              sx={{ padding: "5px 8px", userSelect: "none", color: "#222", textDecoration: "none", cursor: "default", fontWeight: "bold" }}
+            >
               {props.label}
             </Link>
           )}
           {props.page !== props.i && (
-            <Link sx={{ p: 2, userSelect: "none", color: "#222", textDecoration: "none", cursor: "default" }}>{props.label}</Link>
+            <Link sx={{ padding: "5px 8px", userSelect: "none", color: "#222", textDecoration: "none", cursor: "default" }}>
+              {props.label}
+            </Link>
           )}
         </React.Fragment>
       )}
 
       {props.i > 0 && props.i <= props.totalPages && props.page !== props.i && (
-        <Link sx={{ p: 2, userSelect: "none" }} href="#top" onClick={props.onClick}>
+        <Link sx={{ padding: "5px 8px", userSelect: "none" }} href="#top" onClick={props.onClick}>
           {props.label}
         </Link>
       )}

@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
 
 import Box from "@mui/material/Box";
 
 import CircleShop from "./CircleShop";
+
+import useRecursiveTimeout from "./../useRecursiveTimeout";
 
 import Background_0 from "../../Assets/Images/christopher-campbell-kFCdfLbu6zA-unsplash.jpg";
 import Background_1 from "../../Assets/Images/victor-freitas-hOuJYX2K5DA-unsplash.jpg";
@@ -17,45 +18,34 @@ const backgrounds = [
   { backgroundImage: Background_3, styleBall: { right: "16%", bottom: "10%" } },
 ];
 
-class Backgrounds extends Component {
-  state = { randomBackground: Math.floor(Math.random() * 4) };
-
-  componentDidMount() {
-    this.reloadBackgrounds();
-  }
-
-  reloadBackgrounds = () => {
+const Backgrounds = () => {
+  const getBackgroundRandom = (lastBackground: number | null) => {
     let randomBackground = Math.floor(Math.random() * 4);
-    if (randomBackground !== this.state.randomBackground)
-      setTimeout(() => {
-        this.setState({ randomBackground });
-      }, 15000);
-    else this.reloadBackgrounds();
+    if (randomBackground !== lastBackground) return randomBackground;
+    else return getBackgroundRandom(lastBackground);
   };
 
-  render() {
-    return (
-      <Box
-        sx={{
-          backgroundImage: `url(${backgrounds[this.state.randomBackground].backgroundImage})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          height: "100vh",
-          marginTop: "-116px",
-          zIndex: 2,
-          position: "relative",
-          minHeight: "520px",
-        }}
-      >
-        <CircleShop style={backgrounds[this.state.randomBackground].styleBall} />
-      </Box>
-    );
-  }
-}
+  const [randomBackground, setRandomBackground] = React.useState(getBackgroundRandom());
 
-function mapStateToProps(state, props) {
-  return {};
-}
+  useRecursiveTimeout(() => setRandomBackground(getBackgroundRandom(randomBackground)), 8000);
 
-export default connect(mapStateToProps)(Backgrounds);
+  return (
+    <Box
+      sx={{
+        backgroundImage: `url(${backgrounds[randomBackground].backgroundImage})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+        marginTop: "-116px",
+        zIndex: 2,
+        position: "relative",
+        minHeight: "520px",
+      }}
+    >
+      <CircleShop style={backgrounds[randomBackground].styleBall} />
+    </Box>
+  );
+};
+
+export default Backgrounds;

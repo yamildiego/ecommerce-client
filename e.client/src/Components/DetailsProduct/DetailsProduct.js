@@ -41,8 +41,8 @@ class DetailsProduct extends Component {
           color: this.props.color,
           size: this.props.size,
           qty: 1,
-          price: this.props.price.currentPrice,
-          priceId: "priceId" in this.props.price ? this.props.price.priceId : 0,
+          price: this.props.currentPrice,
+          priceId: this.props.priceId,
           colors: this.props.colors,
           dateTime: Date.now(),
         });
@@ -63,7 +63,7 @@ class DetailsProduct extends Component {
   };
 
   render() {
-    const { title, subtitle, price, skuData, colorways } = this.props.productSelected;
+    const { title, subtitle, currentPrice, skuData, colorways } = this.props.productSelected;
 
     return (
       <Box sx={{ flex: 1, mt: 3 }}>
@@ -74,7 +74,7 @@ class DetailsProduct extends Component {
           <Typography variant="h8" sx={{ color: "#9a9a9a" }} gutterBottom component="div">
             {subtitle}
           </Typography>
-          <Box sx={{ mt: 2, mb: 2 }}>${price.currentPrice}</Box>
+          <Box sx={{ mt: 2, mb: 2 }}>${currentPrice}</Box>
         </Box>
         {colorways.length > 1 && (
           <Box sx={{ boxShadow: "0 0 2px transparent", pl: 1, pr: 1 }}>

@@ -54,6 +54,7 @@ class App extends Component {
             <Route exact path="/" element={<HOCForRouteProps Component={Home} />} />
             <Route path="/Shop" element={<HOCForRouteProps Component={Shop} />} />
             <Route path="/Shop/:filter" element={<HOCForRouteProps Component={Shop} />} />
+            {/* <Route path="/Shop/:filter/:search" element={<HOCForRouteProps Component={Shop} />} /> */}
             <Route path="/View/:cloudProductId" element={<HOCForRouteProps Component={ViewItem} />} />
             <Route path="/Bag" element={<HOCForRouteProps Component={Bag} />} />
             <Route path="/Delivery" element={<HOCForRouteProps Component={Delivery} />} />

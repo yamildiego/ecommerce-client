@@ -30,7 +30,7 @@ class CheckoutForm extends Component {
       this.widget = new window.AddressFinder.Widget(document.getElementById("address_line_1"), "4GWE86YXKT3JDPM7LQVR", "AU");
       this.widget.on("result:select", (fullAddress, metaData) => {
         this.props.handleSetAddress({
-          address: metaData.address_line_1,
+          address: `${metaData.address_line_1}${metaData.address_line_2 ? `, ${metaData.address_line_2}` : ``}`,
           suburb: metaData.locality_name,
           state: metaData.state_territory,
           postcode: metaData.postcode,

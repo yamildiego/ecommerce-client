@@ -1,51 +1,93 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Carousel } from "react-responsive-carousel";
+import { isMobile } from "react-device-detect";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 import CrossOut from "./CrossOut";
-import LinkDiv from "../LinkDiv";
+import LinkBox from "../LinkBox";
 import Discount from "./Discount";
 
 class Item extends Component {
-  state = { currentImage: this.props.product.images.squarishURL };
+  state = { currentImage: this.props.product.images.squarishURL, currentImageIndex: 0, startX: null, endX: null };
 
   componentDidUpdate(oldProps) {
     if (oldProps.product !== this.props.product) this.setState({ currentImage: this.props.product.images.squarishURL });
   }
 
-  handleOnMouseEnter = (image) => this.setState({ currentImage: image });
-  handleOnMouseOut = () => this.setState({ currentImage: this.props.product.images.squarishURL });
+  handleOnMouseEnter = (currentImageIndex) => this.setState({ currentImageIndex });
+  handleOnMouseOut = () => this.setState({ currentImageIndex: 0 });
 
   render() {
-    const { product } = this.props;
+    const { product, size } = this.props;
+    let width = size === "S" || isMobile ? 50 : size === "M" ? 33 : 25;
     return (
-      <LinkDiv to={"/View/" + this.props.product.cloudProductId}>
+      <Box
+        sx={{
+          backgroundColor: "#f6f6f6",
+          borderRight: "1px solid #d6d6d6",
+          width: width + "%",
+          borderBottom: "1px solid #d6d6d6",
+          userSelect: "none",
+          cursor: "pointer",
+        }}
+      >
         <Box style={{ position: "relative" }}>
-          <Discount {...this.props.product.price} />
-          <img src={this.state.currentImage} alt={product.title} loading="lazy" style={{ width: "100%" }} />
-          <Stack direction="column" spacing={0} sx={{ width: "100%", backgroundColor: "#f6f6f6" }}>
+          <LinkBox to={`/View/${this.props.product.cloudProductId}`}>
+            <Discount {...this.props.product.price} />
+            <Carousel
+              style={{
+                width: "100%",
+              }}
+              thumbWidth={38}
+              infiniteLoop={true}
+              renderArrowNext={() => {}}
+              renderArrowPrev={() => {}}
+              renderIndicator={() => {}}
+              renderThumbs={() => {}}
+              showStatus={false}
+              selectedItem={this.state.currentImageIndex}
+            >
+              {product.colorways.map((color, i) => {
+                return <img key={i} style={{}} src={color.images.squarishURL} />;
+              })}
+            </Carousel>
             <Box>
               <Box sx={{ textAlign: "left", color: "#222", pl: 1 }}>{product.title}</Box>
               <Box sx={{ textAlign: "left", color: "#8d8d8d", pl: 1, fontSize: "14px" }}>{product.subtitle}</Box>
-              <CrossOut price={product.price} />
+              <CrossOut {...product} />
             </Box>
-            {product.colorways.length > 1 && (
-              <Stack direction="row" spacing={1} sx={{ width: "100%", backgroundColor: "#f6f6f6" }}>
-                {product.colorways.map((color, i) => {
-                  return (
-                    <Box key={i} onMouseEnter={() => this.handleOnMouseEnter(color.images.squarishURL)} onMouseOut={this.handleOnMouseOut}>
-                      <img src={color.images.squarishURL} alt={"Config.NAME"} loading="lazy" style={{ width: "100%", maxWidth: "35px" }} />
-                    </Box>
-                  );
-                })}
-              </Stack>
-            )}
-          </Stack>
+          </LinkBox>
+          {product.colorways.length > 1 && (
+            <Stack direction="row" spacing={1} sx={{ width: "100%", backgroundColor: "#f6f6f6" }}>
+              {product.colorways.map((color, i) => {
+                return (
+                  <LinkBox
+                    key={i}
+                    onClick={() => this.handleOnMouseEnter(i)}
+                    onMouseEnter={() => this.handleOnMouseEnter(i)}
+                    onMouseOut={this.handleOnMouseOut}
+                  >
+                    <img src={color.images.squarishURL} alt={"Config.NAME"} loading="lazy" style={{ width: "100%", maxWidth: "35px" }} />
+                  </LinkBox>
+                );
+              })}
+            </Stack>
+          )}
         </Box>
-      </LinkDiv>
+      </Box>
     );
   }
 }
 
-export default Item;
+function mapStateToProps(state, props) {
+  return {
+    size: state.configReducer.dimensions.size,
+  };
+}
+
+export default connect(mapStateToProps)(Item);

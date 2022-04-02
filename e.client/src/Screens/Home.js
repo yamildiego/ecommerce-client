@@ -9,7 +9,7 @@ import Categories from "../Components/Home/Categories";
 class Home extends Component {
   render() {
     return (
-      <ScreenLayout>
+      <ScreenLayout navigate={this.props.navigate}>
         <Backgrounds />
         <Categories />
       </ScreenLayout>

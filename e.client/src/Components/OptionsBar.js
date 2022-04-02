@@ -11,8 +11,8 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Collapse from "@mui/material/Collapse";
 
@@ -58,7 +58,6 @@ class OptionsBar extends Component {
             )}
           </h2>
         </Box>
-        {products.length > 0 && <Pagination />}
         <Button
           sx={{ width: "242px", fontWeight: fontWeightSort, ml: 0 }}
           variant="inherit"
@@ -98,7 +97,7 @@ class OptionsBar extends Component {
           sx={{ fontWeight: fontWeightShow }}
           onClick={this.toggleFilter}
           variant="inherit"
-          endIcon={this.props.filterOpen ? <FilterAltOffIcon sx={{ mr: 1 }} /> : <FilterAltIcon sx={{ mr: 1 }} />}
+          endIcon={this.props.filterOpen ? <FilterListOffIcon sx={{ mr: 1 }} /> : <FilterListIcon sx={{ mr: 1 }} />}
         >
           {(size === "M" || size === "L") && (
             <React.Fragment>

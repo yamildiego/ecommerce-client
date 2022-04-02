@@ -12,6 +12,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
@@ -30,6 +31,10 @@ const initialState = {
 
 class PersonalData extends Component {
   state = initialState;
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.clear !== this.props.clear && this.props.clear) this.cleanStates();
+  }
 
   handleOnChange = (e, key) => {
     let form = { ...this.state.form };
@@ -70,6 +75,7 @@ class PersonalData extends Component {
     }
 
     if (form.username.error || form.password.error) {
+      console.log(form);
       this.setState({ form });
     } else {
       this.setState({ loading: true });
@@ -144,6 +150,7 @@ class PersonalData extends Component {
                   type={this.state.showPassword ? "text" : "password"}
                   value={this.state.form.password.value}
                   onChange={(e) => this.handleOnChange(e, "password")}
+                  error={this.state.form.password.error}
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -158,6 +165,11 @@ class PersonalData extends Component {
                   }
                   label="Password"
                 />
+                {this.state.form.password.error && (
+                  <FormHelperText id="component-error-text" error>
+                    {this.state.form.password.helperText}
+                  </FormHelperText>
+                )}
               </FormControl>
 
               <Link

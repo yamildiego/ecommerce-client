@@ -10,7 +10,7 @@ const ScreenLayout = (props) => {
   const { size } = props;
   return (
     <Box id={"top"} sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-      <Header />
+      <Header navigate={props.navigate} />
       {props.limitWidth && (
         <Stack
           direction={"column"}

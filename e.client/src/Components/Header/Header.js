@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { BrowserView, MobileView } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -11,7 +12,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 
 import Logo from "./Logo";
 import Option from "./Option";
@@ -30,7 +31,7 @@ const options = [
     id: 2,
     icon: <FavoriteBorderIcon />,
     title: "Wishlist",
-    link: "/bag",
+    link: "/login",
   },
   {
     id: 3,
@@ -41,7 +42,21 @@ const options = [
 ];
 
 class Header extends Component {
-  handleSearch = (e) => this.props.dispatch(ecommerceActions.setSearch(e.target.value));
+  handleSearch = (e) => {
+    this.props.dispatch(ecommerceActions.setSearch(e.target.value));
+    this.search(e.target.value);
+  };
+
+  search = (search) => {
+    let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
+    this.props.dispatch(ecommerceActions.loadProducts({ ...this.props.filters, page: 1 }, search, sort));
+    this.props.navigate("/Shop");
+  };
+
+  closeSearch = () => {
+    this.props.dispatch(ecommerceActions.setSearch(""));
+    this.search("");
+  };
 
   render() {
     return (
@@ -59,7 +74,7 @@ class Header extends Component {
           <Link to={"/"}>
             <Logo />
           </Link>
-          <Box sx={{ flex: 1 }}>
+          <BrowserView style={{ flex: 1 }}>
             <Box sx={{ display: "flex" }}>
               <FormControl sx={{ m: 1, ml: 2, width: "100%" }} variant="outlined">
                 <OutlinedInput
@@ -67,27 +82,50 @@ class Header extends Component {
                   value={this.props.search}
                   onChange={this.handleSearch}
                   endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="search"
-                        // onClick={handleClickShowPassword}
-                        edge="end"
-                      >
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
+                    this.props.search !== "" ? (
+                      <InputAdornment position="end">
+                        <IconButton aria-label="search" onClick={this.closeSearch} edge="end">
+                          <CloseIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ) : (
+                      ""
+                    )
                   }
                   placeholder="Search..."
                 />
               </FormControl>
             </Box>
-          </Box>
+          </BrowserView>
           <Box sx={{ backgroundColor: "white", display: "flex", justifyContent: "center", m: 1 }}>
             {options.map((op, index) => (
               <Option key={op.id} {...op} />
             ))}
           </Box>
         </Stack>
+        <MobileView style={{ flex: 1 }}>
+          <Box sx={{ display: "flex" }}>
+            <FormControl sx={{ m: 1, ml: 2, width: "100%" }} variant="outlined">
+              <OutlinedInput
+                type="text"
+                value={this.props.search}
+                onChange={this.handleSearch}
+                endAdornment={
+                  this.props.search !== "" ? (
+                    <InputAdornment position="end">
+                      <IconButton aria-label="search" onClick={this.closeSearch} edge="end">
+                        <CloseIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ) : (
+                    ""
+                  )
+                }
+                placeholder="Search..."
+              />
+            </FormControl>
+          </Box>
+        </MobileView>
         <Subheader />
       </Box>
     );
@@ -97,7 +135,10 @@ class Header extends Component {
 function mapStateToProps(state, props) {
   return {
     width: state.configReducer.dimensions.width,
+    filters: state.ecommerceReducer.filters,
     search: state.ecommerceReducer.search,
+    sort: state.ecommerceReducer.sort,
+    sortsStructures: state.ecommerceReducer.sortsStructures,
   };
 }
 

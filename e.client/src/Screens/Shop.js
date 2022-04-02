@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -21,7 +22,7 @@ class Shop extends Component {
     this.setFilter();
     let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
     setTimeout(() => {
-      this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, sort));
+      this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, this.props.search, sort));
     }, 1000);
   }
 
@@ -29,7 +30,7 @@ class Shop extends Component {
     let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
 
     if (this.props.filters !== oldProps.filters || this.props.sort !== oldProps.sort)
-      this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, sort));
+      this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, this.props.search, sort));
   }
 
   setFilter = () => {
@@ -55,12 +56,12 @@ class Shop extends Component {
 
   render() {
     return (
-      <ScreenLayout>
+      <ScreenLayout navigate={this.props.navigate}>
         <Stack direction="column">
           <OptionsBar />
           <Box sx={{ display: "flex" }}>
             <Filters />
-            <Box component="main" sx={{ flexGrow: 1, position: "relative" }}>
+            <Box component="main" sx={{ flexGrow: 1, position: isMobile ? "absolute" : "relative" }}>
               <Loading isLoading={this.props.isLoading} />
               <Items />
             </Box>
@@ -77,6 +78,7 @@ function mapStateToProps(state, props) {
     filters: state.ecommerceReducer.filters,
     sort: state.ecommerceReducer.sort,
     sortsStructures: state.ecommerceReducer.sortsStructures,
+    search: state.ecommerceReducer.search,
   };
 }
 
