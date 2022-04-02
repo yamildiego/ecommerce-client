@@ -4,21 +4,20 @@ const random = require("mongoose-simple-random");
 var ObjectId = require("mongodb").ObjectID;
 
 const ProductSchema = mongoose.Schema({
+  cloudProductId: String,
   title: String,
   subtitle: String,
-  colorways: [{ colorDescription: String, images: Object }],
-  images: Object,
-  price: { currency: String, currencyPrice: Number, discounted: Boolean, fullPrice: Number },
-  productType: String,
-  genders: [String],
   category: String,
-  cloudProductId: String,
+  genders: [String],
+  currentPrice: Number,
+  fullPrice: Number,
+  priceId: String,
+  colorways: [{ colorDescription: String, images: Object }],
+  skuData: [Object],
+  images: Object,
   isOnSale: Boolean,
-  price: {
-    priceId: String,
-    currentPrice: Number,
-    fullPrice: Number,
-  },
+  active: Boolean,
+  deleted: Boolean,
 });
 
 ProductSchema.plugin(mongoosePaginate);
