@@ -16,7 +16,7 @@ class Login extends Component {
 
   render() {
     return (
-      <ScreenLayout limitWidth={true}>
+      <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
         <Box sx={{ pt: 4, margin: "auto" }}>
           <BoxLogin clear={this.state.clearForm} />
         </Box>

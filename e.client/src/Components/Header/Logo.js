@@ -17,7 +17,7 @@ class Logo extends Component {
           style={{
             maxWidth: "145px",
             maxHeight: "48px",
-            width: this.props.width > 1024 ? "auto" : "40px",
+            width: this.props.width > 1024 || isMobile ? "auto" : "40px",
           }}
         />
       </Box>

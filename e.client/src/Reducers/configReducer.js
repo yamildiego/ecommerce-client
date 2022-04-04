@@ -13,6 +13,7 @@ const initialState = {
   isLoading: false,
   slideMenuOpen: false,
   optionsMenu: false,
+  searchMobile: false,
   dimensions: { width: window.innerWidth, height: window.innerHeight, size: getSize(window.innerWidth) },
   theme: {
     palette: {
@@ -27,6 +28,9 @@ export default function appReducer(state = initialState, action = {}) {
   switch (action.type) {
     case Types.TOGGLE_OPTIONS_MENU: {
       return { ...state, optionsMenu: !state.optionsMenu };
+    }
+    case Types.TOGGLE_SEARCH_MOBILE: {
+      return { ...state, searchMobile: action.searchMobile !== null ? action.searchMobile : !state.searchMobile };
     }
     case Types.TOGGLE_SLIDE_MENU_OPEN: {
       return { ...state, slideMenuOpen: !state.slideMenuOpen };

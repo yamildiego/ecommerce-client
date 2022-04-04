@@ -5,8 +5,6 @@ import { isMobile } from "react-device-detect";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-import withParamsAndNavigate from "../Functions/withParamsAndNavigate";
-
 import ScreenLayout from "./ScreenLayout";
 import Filters from "./../Components/Filters/Filters";
 import Items from "./../Components/Items/Items";
@@ -19,8 +17,8 @@ import * as viewProductActions from "../Actions/viewProductActions";
 class Shop extends Component {
   componentDidMount() {
     this.props.dispatch(viewProductActions.cleanProductSelected());
-    this.setFilter();
     let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
+    this.setFilter(sort);
     setTimeout(() => {
       this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, this.props.search, sort));
     }, 1000);
@@ -33,7 +31,7 @@ class Shop extends Component {
       this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, this.props.search, sort));
   }
 
-  setFilter = () => {
+  setFilter = (sort) => {
     const initFilters = { category: [], gender: [], kids: [], price: [30, 450], page: 1 };
     if (this.props.params !== undefined && "filter" in this.props.params) {
       switch (this.props.params.filter) {
@@ -48,6 +46,8 @@ class Shop extends Component {
           initFilters.kids.push("GIRLS");
           break;
         default:
+          this.props.dispatch(ecommerceActions.setSearch(this.props.params.filter));
+          this.props.dispatch(ecommerceActions.loadProducts(this.props.filters, this.props.params.filter, sort));
           break;
       }
       this.props.dispatch(ecommerceActions.setFilters(initFilters));
@@ -56,7 +56,7 @@ class Shop extends Component {
 
   render() {
     return (
-      <ScreenLayout navigate={this.props.navigate}>
+      <ScreenLayout navigate={this.props.navigate} location={this.props.location}>
         <Stack direction="column">
           <OptionsBar />
           <Box sx={{ display: "flex" }}>
@@ -82,4 +82,4 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default withParamsAndNavigate(connect(mapStateToProps)(Shop));
+export default connect(mapStateToProps)(Shop);

@@ -1,9 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 function HOCForRouteProps({ Component }) {
   const navigate = useNavigate();
-  return <Component navigate={navigate} />;
+  const location = useLocation();
+  return <Component navigate={navigate} location={location} params={useParams()} />;
 }
 
 export default HOCForRouteProps;

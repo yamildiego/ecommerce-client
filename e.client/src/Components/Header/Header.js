@@ -5,22 +5,25 @@ import { BrowserView, MobileView } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
+import Collapse from "@mui/material/Collapse";
 
 import Logo from "./Logo";
 import Option from "./Option";
 import Subheader from "./Subheader";
+import SearchField from "./SearchField";
 
-import * as ecommerceActions from "../../Actions/ecommerceActions";
+import * as configActions from "../../Actions/configActions";
 
 const options = [
+  {
+    id: 0,
+    icon: <SearchIcon />,
+    title: "Search",
+  },
   {
     id: 1,
     icon: <PersonOutlineIcon />,
@@ -42,21 +45,7 @@ const options = [
 ];
 
 class Header extends Component {
-  handleSearch = (e) => {
-    this.props.dispatch(ecommerceActions.setSearch(e.target.value));
-    this.search(e.target.value);
-  };
-
-  search = (search) => {
-    let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
-    this.props.dispatch(ecommerceActions.loadProducts({ ...this.props.filters, page: 1 }, search, sort));
-    this.props.navigate("/Shop");
-  };
-
-  closeSearch = () => {
-    this.props.dispatch(ecommerceActions.setSearch(""));
-    this.search("");
-  };
+  toggleSearch = () => this.props.dispatch(configActions.toggleSearch());
 
   render() {
     return (
@@ -75,56 +64,18 @@ class Header extends Component {
             <Logo />
           </Link>
           <BrowserView style={{ flex: 1 }}>
-            <Box sx={{ display: "flex" }}>
-              <FormControl sx={{ m: 1, ml: 2, width: "100%" }} variant="outlined">
-                <OutlinedInput
-                  type="text"
-                  value={this.props.search}
-                  onChange={this.handleSearch}
-                  endAdornment={
-                    this.props.search !== "" ? (
-                      <InputAdornment position="end">
-                        <IconButton aria-label="search" onClick={this.closeSearch} edge="end">
-                          <CloseIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ) : (
-                      ""
-                    )
-                  }
-                  placeholder="Search..."
-                />
-              </FormControl>
-            </Box>
+            <SearchField location={this.props.location} navigate={this.props.navigate} />
           </BrowserView>
           <Box sx={{ backgroundColor: "white", display: "flex", justifyContent: "center", m: 1 }}>
             {options.map((op, index) => (
-              <Option key={op.id} {...op} />
+              <Option key={op.id} {...op} toggleSearch={this.toggleSearch} />
             ))}
           </Box>
         </Stack>
         <MobileView style={{ flex: 1 }}>
-          <Box sx={{ display: "flex" }}>
-            <FormControl sx={{ m: 1, ml: 2, width: "100%" }} variant="outlined">
-              <OutlinedInput
-                type="text"
-                value={this.props.search}
-                onChange={this.handleSearch}
-                endAdornment={
-                  this.props.search !== "" ? (
-                    <InputAdornment position="end">
-                      <IconButton aria-label="search" onClick={this.closeSearch} edge="end">
-                        <CloseIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ) : (
-                    ""
-                  )
-                }
-                placeholder="Search..."
-              />
-            </FormControl>
-          </Box>
+          <Collapse in={this.props.searchMobile} timeout="auto" unmountOnExit>
+            <SearchField location={this.props.location} navigate={this.props.navigate} />
+          </Collapse>
         </MobileView>
         <Subheader />
       </Box>
@@ -135,10 +86,7 @@ class Header extends Component {
 function mapStateToProps(state, props) {
   return {
     width: state.configReducer.dimensions.width,
-    filters: state.ecommerceReducer.filters,
-    search: state.ecommerceReducer.search,
-    sort: state.ecommerceReducer.sort,
-    sortsStructures: state.ecommerceReducer.sortsStructures,
+    searchMobile: state.configReducer.searchMobile,
   };
 }
 

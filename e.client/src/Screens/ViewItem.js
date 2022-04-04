@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import ScreenLayout from "./ScreenLayout";
 import View from "../Components/View/View";
 
-import withParamsAndNavigate from "../Functions/withParamsAndNavigate";
-
 import * as viewProductActions from "../Actions/viewProductActions";
 
 class ViewItem extends Component {
@@ -15,7 +13,7 @@ class ViewItem extends Component {
 
   render() {
     return (
-      <ScreenLayout limitWidth={true}>
+      <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
         <View />
       </ScreenLayout>
     );
@@ -26,4 +24,4 @@ function mapStateToProps(state, props) {
   return {};
 }
 
-export default withParamsAndNavigate(connect(mapStateToProps)(ViewItem));
+export default connect(mapStateToProps)(ViewItem);

@@ -17,7 +17,7 @@ class Payment extends Component {
 
   render() {
     return (
-      <ScreenLayout limitWidth={true}>
+      <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
         <Box sx={{ pl: 2, pr: 2, mb: 4 }}>
           <MyStepper />
           <Box sx={{ textAlign: "center", mt: 4 }}>

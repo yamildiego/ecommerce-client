@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { MobileView, isMobile } from "react-device-detect";
 
 import { Link } from "react-router-dom";
 
@@ -9,26 +10,47 @@ import Badge from "@mui/material/Badge";
 class Option extends Component {
   render() {
     return (
-      <Box
-        sx={{
-          flexDirection: "column",
-          width: `${this.props.width <= 1024 ? 50 : 90}px`,
-          cursor: "pointer",
-          pt: this.props.width <= 1024 ? 2 : 0,
-        }}
-      >
-        <Link to={this.props.link} style={{ textDecoration: "none" }}>
-          <Box sx={{ textAlign: "center", height: "30px", color: "#f55e3f" }}>
-            {this.props.id === 3 && this.props.qty !== 0 && (
-              <Badge badgeContent={this.props.qty} color="primary">
-                {this.props.icon}
-              </Badge>
+      <React.Fragment>
+        {("link" in this.props || (!("link" in this.props) && isMobile)) && (
+          <Box
+            sx={{
+              flexDirection: "column",
+              width: `${this.props.width <= 1024 ? 50 : 90}px`,
+              cursor: "pointer",
+              pt: this.props.width <= 1024 ? 2 : 0,
+            }}
+          >
+            {"link" in this.props && (
+              <Link to={this.props.link} style={{ textDecoration: "none" }}>
+                <Box sx={{ textAlign: "center", height: "30px", color: "#f55e3f" }}>
+                  {this.props.id === 3 && this.props.qty !== 0 && (
+                    <Badge badgeContent={this.props.qty} color="primary">
+                      {this.props.icon}
+                    </Badge>
+                  )}
+                  {(this.props.id !== 3 || this.props.qty === 0) && this.props.icon}
+                </Box>
+                {this.props.width > 1024 && <Box sx={{ textAlign: "center", fontSize: "12px", color: "#222" }}>{this.props.title}</Box>}
+              </Link>
             )}
-            {(this.props.id !== 3 || this.props.qty === 0) && this.props.icon}
+            <MobileView>
+              {!("link" in this.props) && (
+                <Box onClick={this.props.toggleSearch}>
+                  <Box sx={{ textAlign: "center", height: "30px", color: "#f55e3f" }}>
+                    {this.props.id === 3 && this.props.qty !== 0 && (
+                      <Badge badgeContent={this.props.qty} color="primary">
+                        {this.props.icon}
+                      </Badge>
+                    )}
+                    {(this.props.id !== 3 || this.props.qty === 0) && this.props.icon}
+                  </Box>
+                  {this.props.width > 1024 && <Box sx={{ textAlign: "center", fontSize: "12px", color: "#222" }}>{this.props.title}</Box>}
+                </Box>
+              )}
+            </MobileView>
           </Box>
-          {this.props.width > 1024 && <Box sx={{ textAlign: "center", fontSize: "12px", color: "#222" }}>{this.props.title}</Box>}
-        </Link>
-      </Box>
+        )}
+      </React.Fragment>
     );
   }
 }

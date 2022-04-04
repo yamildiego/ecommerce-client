@@ -15,11 +15,11 @@ const backgrounds = [
   { backgroundImage: Background_0, styleBall: isMobile ? { right: "2%", bottom: "28%" } : { right: "22%", bottom: "28%" } },
   {
     backgroundImage: Background_1,
-    styleBall: isMobile ? { right: "4%", bottom: "4%" } : { right: "30%", bottom: "6%" },
+    styleBall: isMobile ? { right: "4%", bottom: "8%" } : { right: "30%", bottom: "6%" },
   },
   {
     backgroundImage: Background_2,
-    styleBall: isMobile ? { left: "50%", bottom: "-2%", transform: "translateX(-50%)" } : { right: "16%", bottom: "10%" },
+    styleBall: isMobile ? { left: "50%", bottom: "2%", transform: "translateX(-50%)" } : { right: "16%", bottom: "10%" },
   },
 ];
 

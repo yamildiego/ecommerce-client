@@ -21,7 +21,7 @@ class Bag extends Component {
   render() {
     const { size } = this.props;
     return (
-      <ScreenLayout limitWidth={true}>
+      <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
         <Box sx={{ pl: 2, pr: 2 }}>
           <MyStepper />
           <Stack direction={size === "S" ? "column" : "row"} sx={{ justifyContent: "space-between" }}>

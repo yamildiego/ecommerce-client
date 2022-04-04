@@ -27,3 +27,8 @@ export const removeError = (key) => ({
   type: Types.REMOVE_ERROR,
   key,
 });
+
+export const toggleSearch = (searchMobile = null) => ({
+  type: Types.TOGGLE_SEARCH_MOBILE,
+  searchMobile,
+});
