@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 
@@ -10,7 +11,7 @@ class Logo extends Component {
     return (
       <Box sx={{ m: 1, cursor: "pointer" }}>
         <img
-          src={this.props.width > 1024 ? Config.LOGO : Config.SMALL_LOGO}
+          src={this.props.width > 1024 || isMobile ? Config.LOGO : Config.SMALL_LOGO}
           alt={Config.NAME}
           loading="lazy"
           style={{

@@ -70,7 +70,7 @@ class Header extends Component {
           borderRadius: 1,
         }}
       >
-        <Stack direction="row" sx={{ justifyContent: "space-around", position: "relative", zIndex: 12 }}>
+        <Stack direction="row" sx={{ justifyContent: "space-between", position: "relative", zIndex: 12 }}>
           <Link to={"/"}>
             <Logo />
           </Link>

@@ -144,7 +144,9 @@ class PersonalData extends Component {
               />
 
               <FormControl sx={{ mt: 2, userSelect: "none" }} fullWidth variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password" error={this.state.form.password.error}>
+                  Password
+                </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
                   type={this.state.showPassword ? "text" : "password"}
