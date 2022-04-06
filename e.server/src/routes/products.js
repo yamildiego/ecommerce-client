@@ -9,13 +9,44 @@ router.post("/getProduct", async (req, res) => {
   Product.find({ cloudProductId: dataPost.cloudProductId }, (err, docs) => {
     let item = null;
     if (docs.length > 0) item = docs[0];
-    res.send({ status: "OK", item });
+
+    let filter = getFilter(dataPost);
+
+    Product.findRandom(filter, {}, { limit: 12 }, (err, recomendationsDocs) => {
+      let recomendations = [];
+      recomendations = recomendationsDocs.filter((recomendationsDoc) => recomendationsDoc.cloudProductId !== item.cloudProductId);
+
+      if (recomendations.length < 12) {
+        Product.findRandom({}, {}, { limit: 13 - recomendations.length }, (err, docsRandom) => {
+          let recomendationsRandom = [];
+          if (!err) {
+            recomendationsRandom = docsRandom.filter((docRan) => docRan.cloudProductId !== item.cloudProductId);
+
+            res.send({ status: "OK", item, recomendations: [...recomendations, ...recomendationsRandom] });
+          } else res.send({ status: "OK", item, recomendations: [] });
+        });
+      } else res.send({ status: "OK", item, recomendations });
+    });
   });
 });
 
 router.post("/", async (req, res) => {
   let dataPost = { ...req.body };
-  let genders = {};
+
+  let options = getOptions(dataPost, 24);
+
+  let filter = getFilter(dataPost);
+
+  Product.paginate(filter, options, (err, result) => {
+    let itemsData = [];
+
+    result.docs.forEach((doc) => itemsData.push(doc));
+
+    res.send({ status: "OK", items: itemsData, totalPages: result.totalPages });
+  });
+});
+
+function getFilter(dataPost) {
   let realFilters = [
     { $or: [{ title: { $regex: dataPost.search, $options: "i" } }, { subtitle: { $regex: dataPost.search, $options: "i" } }] },
   ];
@@ -35,6 +66,10 @@ router.post("/", async (req, res) => {
   if (dataPost.filter["category"].length > 0) realFilters.push({ category: { $in: dataPost.filter["category"] } });
   if (dataPost.filter["onSale"] && dataPost.filter["onSale"].length > 0) realFilters.push({ isOnSale: true });
 
+  return { $and: realFilters };
+}
+
+const getOptions = (dataPost, limit) => {
   let projection = {
     _id: 1,
     cloudProductId: 1,
@@ -53,22 +88,12 @@ router.post("/", async (req, res) => {
     deleted: 1,
   };
 
-  const options = {
+  return {
     page: dataPost.filter.page ? dataPost.filter.page : 1,
-    limit: 24,
+    limit,
     sort: dataPost.sort ? dataPost.sort : {},
     projection,
   };
-
-  Product.paginate({ $and: realFilters }, options, (err, result) => {
-    let itemsData = [];
-
-    result.docs.forEach((doc) => {
-      itemsData.push(doc);
-    });
-
-    res.send({ status: "OK", items: itemsData, totalPages: result.totalPages });
-  });
-});
+};
 
 module.exports = router;
