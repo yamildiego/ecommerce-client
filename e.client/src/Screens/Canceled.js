@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 
 import ScreenLayout from "./ScreenLayout";
 
-import MyStepper from "../Components/MyStepper/MyStepper";
+import MyStepper from "../Components/Common/MyStepper/MyStepper";
 
 import * as bagActions from "../Actions/bagActions";
 

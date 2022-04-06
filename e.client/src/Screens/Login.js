@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Box from "@mui/material/Box";
 
-import BoxLogin from "../Components/Login";
+import BoxLogin from "../Components/Common/Login";
 
 import ScreenLayout from "./ScreenLayout";
 

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 import Zoom from "./Zoom";
-import DetailsProduct from "../DetailsProduct/DetailsProduct";
+import DetailsProduct from "./DetailsProduct/DetailsProduct";
 
 import * as viewProductActions from "../../Actions/viewProductActions";
 
@@ -35,7 +35,7 @@ class View extends Component {
   render() {
     const { productSelected, isLoadingImages, size } = this.props;
     return (
-      <Stack direction={size === "L" ? "row" : "column"} sx={{ mb: 2}}>
+      <Stack direction={size === "L" ? "row" : "column"} sx={{ mb: 2 }}>
         {productSelected && (
           <React.Fragment>
             <Box sx={{ flex: 1, pl: 2, pr: 2, justifyContent: "center", display: "flex", mt: 3 }}>

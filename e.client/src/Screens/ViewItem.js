@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import ScreenLayout from "./ScreenLayout";
 import View from "../Components/View/View";
+import Recommendations from "../Components/Recommendations";
 
 import * as viewProductActions from "../Actions/viewProductActions";
 
@@ -15,6 +16,7 @@ class ViewItem extends Component {
     return (
       <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
         <View />
+        <Recommendations />
       </ScreenLayout>
     );
   }

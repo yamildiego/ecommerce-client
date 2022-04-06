@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-import Header from "../Components/Header/Header";
+import Header from "../Components/Common/Header/Header";
 
 const ScreenLayout = (props) => {
   const { size } = props;

@@ -9,6 +9,7 @@ const initialState = {
   size: null,
   qty: 1,
   showErrors: false,
+  recomendations: [],
 };
 
 export default function viewProductReducer(state = initialState, action = {}) {
@@ -45,6 +46,9 @@ export default function viewProductReducer(state = initialState, action = {}) {
     }
     case Types.SHOW_ERRORS: {
       return { ...state, showErrors: action.showErrors };
+    }
+    case Types.SET_RECOMENDATIONS: {
+      return { ...state, recomendations: action.recomendations };
     }
     default:
       return state;

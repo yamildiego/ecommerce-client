@@ -7,9 +7,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import ScreenLayout from "./ScreenLayout";
-import OrderSumary from "../Components/OrderSumary/OrderSumary";
-import MyStepper from "../Components/MyStepper/MyStepper";
-import ListYourBag from "../Components/ListYourBag/ListYourBag";
+import OrderSumary from "../Components/Bag/OrderSumary/OrderSumary";
+import MyStepper from "../Components/Common/MyStepper/MyStepper";
+import ListYourBag from "../Components/Bag/ListYourBag/ListYourBag";
 
 import * as bagActions from "../Actions/bagActions";
 

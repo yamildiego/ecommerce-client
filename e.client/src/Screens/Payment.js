@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import ScreenLayout from "./ScreenLayout";
 
-import MyStepper from "../Components/MyStepper/MyStepper";
+import MyStepper from "../Components/Common/MyStepper/MyStepper";
 
 import * as bagActions from "../Actions/bagActions";
 import * as deliveryActions from "../Actions/deliveryActions";

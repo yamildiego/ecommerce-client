@@ -5,9 +5,11 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
 import ScreenLayout from "./ScreenLayout";
-import MyStepper from "../Components/MyStepper/MyStepper";
-import Login from "../Components/Login";
-import DataDelivery from "../Components/DataDelivery/DataDelivery";
+
+import MyStepper from "../Components/Common/MyStepper/MyStepper";
+import Login from "../Components/Common/Login";
+
+import DataDelivery from "../Components/Delivery/DataDelivery";
 
 import * as bagActions from "../Actions/bagActions";
 

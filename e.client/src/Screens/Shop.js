@@ -6,10 +6,10 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 import ScreenLayout from "./ScreenLayout";
-import Filters from "./../Components/Filters/Filters";
-import Items from "./../Components/Items/Items";
-import Loading from "./../Components/Loading";
-import OptionsBar from "./../Components/OptionsBar";
+import Filters from "../Components/Shop/Filters/Filters";
+import Items from "../Components/Shop/Items/Items";
+import OptionsBar from "../Components/Shop/OptionsBar";
+import Loading from "../Components/Loading";
 
 import * as ecommerceActions from "../Actions/ecommerceActions";
 import * as viewProductActions from "../Actions/viewProductActions";

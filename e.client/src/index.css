@@ -7,3 +7,8 @@ body {
 * {
   font-family: "Fredoka";
 }
+
+
+.carousel .control-dots .dot {
+  background-color: #f55e3f !important;
+}

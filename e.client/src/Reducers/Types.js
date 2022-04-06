@@ -37,6 +37,7 @@ export const SET_COLOR = "SET_COLOR";
 export const SET_SIZE = "SET_SIZE";
 export const SET_QTY = "SET_QTY";
 export const SHOW_ERRORS = "SHOW_ERRORS";
+export const SET_RECOMENDATIONS = "SET_RECOMENDATIONS";
 
 //Bag
 export const SET_ITEMS = "SET_ITEMS";
@@ -49,3 +50,9 @@ export const SET_PERSONAL = "SET_PERSONAL";
 export const SET_ERRORS_DELIVERY = "SET_ERRORS_DELIVERY";
 export const SET_ERRORS_HELPERTEXT = "SET_ERRORS_HELPERTEXT";
 export const SET_URL_PAYMENT = "SET_URL_PAYMENT";
+
+//Wishlist
+export const SET_ITEMS_WISHLIST = "SET_ITEMS_WISHLIST";
+export const ADD_ITEM = "ADD_ITEM";
+export const REMOVE_ITEM = "REMOVE_ITEM";
+export const CLEAN_ITEMS = "CLEAN_ITEMS";
