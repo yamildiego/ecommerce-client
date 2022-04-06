@@ -19,7 +19,7 @@ class ItemWishlist extends Component {
       <Box sx={styles.container}>
         {item && (
           <React.Fragment>
-            <Box sx={{ border: "1px solid #0000001f", borderRadius: "1px", position: "relative" }}>
+            <Box sx={{ border: "1px solid #0000001f", borderRadius: "1px", position: "relative", maxWidth: "370px", margin: "auto" }}>
               <div style={styles.close} onClick={this.handleOnClickRemove}>
                 <IconButton onClick={() => this.handleOnClickRemove(item)} color="primary" component="span">
                   <FavoriteIcon />
@@ -29,7 +29,7 @@ class ItemWishlist extends Component {
               <LinkBox to={`/View/${item.cloudProductId}`} sx={{ cursor: "pointer" }}>
                 <Stack direction={size === "S" ? "column" : "row"}>
                   <Box sx={{ maxWidth: "200px", margin: "auto" }}>
-                    <img src={item.colors[0].src} alt="" style={{ width: "100%", height: "100%" }} />
+                    <img src={item.colorways[0].images.squarishURL} alt="" style={{ width: "100%", height: "100%" }} />
                   </Box>
                   <Box sx={{ p: 2, flex: 1, position: "relative" }}>
                     <Box>
@@ -38,7 +38,11 @@ class ItemWishlist extends Component {
                       <Box sx={styles.line}>
                         Colors:
                         {item.colorways.map((color, i) => {
-                          return <Box sx={{ fontSize: "14px", lineHeight: "12px", pl: "50px" }}>{color.colorDescription}</Box>;
+                          return (
+                            <Box key={i} sx={{ fontSize: "14px", lineHeight: "12px", pl: "50px" }}>
+                              {color.colorDescription}
+                            </Box>
+                          );
                         })}
                       </Box>
                       <Box sx={styles.line}>
@@ -46,7 +50,7 @@ class ItemWishlist extends Component {
                         <Box sx={{ pl: "10px", display: "inline-block" }}>
                           {item.skuData.map((size, i) => {
                             return (
-                              <Box sx={{ fontSize: "14px", lineHeight: "12px", display: "inline-block" }}>
+                              <Box key={i} sx={{ fontSize: "14px", lineHeight: "12px", display: "inline-block" }}>
                                 <Box sx={{ display: "inline-block", pr: "4px" }}>{size.size}</Box>
                                 {item.skuData.length - 1 !== i && <Box sx={{ display: "inline-block", pr: "2px", pl: "2px" }}>|</Box>}
                               </Box>

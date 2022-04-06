@@ -9,7 +9,7 @@ import ScreenLayout from "./ScreenLayout";
 import Filters from "../Components/Shop/Filters/Filters";
 import Items from "../Components/Shop/Items/Items";
 import OptionsBar from "../Components/Shop/OptionsBar";
-import Loading from "../Components/Loading";
+import Loading from "../Components/Common/Loading";
 
 import * as ecommerceActions from "../Actions/ecommerceActions";
 import * as viewProductActions from "../Actions/viewProductActions";

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 import CircleShop from "./CircleShop";
 
-import useRecursiveTimeout from "./../useRecursiveTimeout";
+import useRecursiveTimeout from "../../Functions/useRecursiveTimeout";
 
 import Background_0 from "../../Assets/Images/christopher-campbell-kFCdfLbu6zA-unsplash.jpg";
 import Background_1 from "../../Assets/Images/victor-freitas-hOuJYX2K5DA-unsplash.jpg";

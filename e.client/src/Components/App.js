@@ -6,10 +6,10 @@ import localforage from "localforage";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import ScrollToTop from "./ScrollToTop";
+import ScrollToTop from "../Functions/ScrollToTop";
+import HOCForRouteProps from "../Functions/HOCForRouteProps";
 import Errors from "./Errors";
 
-import HOCForRouteProps from "./HOCForRouteProps";
 import Home from "../Screens/Home";
 import Shop from "../Screens/Shop";
 import ViewItem from "../Screens/ViewItem";

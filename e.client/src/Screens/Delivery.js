@@ -26,19 +26,34 @@ class Delivery extends Component {
     const { size } = this.props;
     return (
       <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
-        <Box sx={{ pl: 2, pr: 2, mb: 4 }}>
+        <Box sx={{ pl: 2, pr: 2 }}>
           <MyStepper />
-          {this.props.items.length > 0 && (
-            <Stack direction={size === "S" ? "column" : "row"} sx={{ justifyContent: "space-between" }}>
+          <Stack direction={size === "S" ? "column" : "row"} sx={{ justifyContent: "space-between" }}>
+            <Box sx={{ backgroundColor: "white", flex: 1, pr: size === "S" ? 0 : 2 }}>
               <DataDelivery navigate={this.props.navigate} />
+            </Box>
+            <Box>
+              {this.props.items.length === 0 && (this.props.size === "L" || this.props.size === "M") && <Box sx={{ height: "77px" }}></Box>}
               <Login />
-            </Stack>
-          )}
+            </Box>
+          </Stack>
         </Box>
       </ScreenLayout>
     );
   }
 }
+
+// {/* <ScreenLayout limitWidth={true} navigate={this.props.navigate} location={this.props.location}>
+// <Box sx={{ pl: 2, pr: 2, mb: 4 }}>
+//   <MyStepper />
+//   {this.props.items.length > 0 && (
+//     <Stack direction={size === "S" ? "column" : "row"} sx={{ justifyContent: "space-between" }}>
+//       <DataDelivery navigate={this.props.navigate} />
+//       <Login />
+//     </Stack>
+//   )}
+// </Box>
+// </ScreenLayout> */}
 
 function mapStateToProps(state, props) {
   return {

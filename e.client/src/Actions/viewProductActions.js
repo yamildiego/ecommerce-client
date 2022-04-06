@@ -54,14 +54,20 @@ export const showErrors = (showErrors) => ({
   showErrors,
 });
 
-export const getProduct = (cloudProductId) => {
+export const setRecomendations = (recomendations) => ({
+  type: Types.SET_RECOMENDATIONS,
+  recomendations,
+});
+
+export const getProduct = (cloudProductId, filter, search, sort) => {
   return async (dispatch) => {
     dispatch(setIsLoadingView(true));
     await server
-      .post(`${Urls.getProduct}`, { cloudProductId })
+      .post(`${Urls.getProduct}`, { cloudProductId, filter, search, sort })
       .then((response) => {
         if (response.data.status === "OK") {
           dispatch(setProductSelected(response.data.item));
+          dispatch(setRecomendations(response.data.recomendations));
           dispatch(setIsLoadingView(false));
         }
       })

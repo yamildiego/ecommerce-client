@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 
 import ScreenLayout from "./ScreenLayout";
 import ListYourWishlist from "../Components/Wishlist/ListYourWishlist";
@@ -27,11 +25,13 @@ class Wishlist extends Component {
               <ListYourWishlist />
             </Box>
             <Box>
-              <Box sx={{ marginTop: "35px" }}>
+              <Box sx={{ marginTop: "35px", margin: "auto" }}>
                 <h4 style={styles.label}>DON'T LOSE YOUR WISHLIST</h4>
                 <h5 style={styles.label}>Create an account today or log in to save your Wish List.</h5>
               </Box>
-              <Login />
+              <Box sx={{ pt: 4, margin: "auto" }}>
+                <Login />
+              </Box>
             </Box>
           </Stack>
         </Box>

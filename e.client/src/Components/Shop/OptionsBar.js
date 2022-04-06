@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -57,7 +58,7 @@ class OptionsBar extends Component {
           </h2>
         </Box>
         <Button
-          sx={{ width: "242px", fontWeight: fontWeightSort, ml: 0 }}
+          sx={{ width: isMobile ? "auto" : "242px", fontWeight: fontWeightSort, ml: 0 }}
           variant="inherit"
           endIcon={<KeyboardArrowDownIcon />}
           onClick={() => this.setState({ expanded: !this.state.expanded })}
@@ -75,7 +76,7 @@ class OptionsBar extends Component {
               position: "absolute",
               zIndex: 2000,
               top: "50px",
-              right: 180,
+              right: isMobile ? 20 : 180,
             }}
           >
             <List>
