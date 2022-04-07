@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 
@@ -69,7 +70,12 @@ class TitleFilter extends Component {
   };
 
   render() {
-    return <Box sx={{ fontSize: "30px", pl: 4 }}>{this.state.title}</Box>;
+    const { size } = this.props;
+    return (
+      <Box sx={{ fontSize: "30px", pl: isMobile || size === "S" ? 0 : 4, textAlign: isMobile || size === "S" ? "center" : "left" }}>
+        {this.state.title}
+      </Box>
+    );
   }
 }
 
@@ -78,6 +84,7 @@ function mapStateToProps(state, props) {
     filters: state.ecommerceReducer.filters,
     search: state.ecommerceReducer.search,
     currentFilter: state.ecommerceReducer.currentFilter,
+    size: state.configReducer.dimensions.size,
   };
 }
 export default connect(mapStateToProps)(TitleFilter);

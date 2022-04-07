@@ -50,7 +50,7 @@ function getFilter(dataPost) {
   let realFilters = [
     { $or: [{ title: { $regex: dataPost.search, $options: "i" } }, { subtitle: { $regex: dataPost.search, $options: "i" } }] },
   ];
-  let filterPrice = { "price.currentPrice": { $gt: dataPost.filter.price[0], $lt: dataPost.filter.price[1] } };
+  let filterPrice = { currentPrice: { $gt: dataPost.filter.price[0], $lt: dataPost.filter.price[1] } };
   realFilters.push(filterPrice);
 
   if (dataPost.filter["kids"].length > 0) realFilters.push({ genders: { $in: dataPost.filter["kids"] } });

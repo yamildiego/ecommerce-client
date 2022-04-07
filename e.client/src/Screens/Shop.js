@@ -13,6 +13,7 @@ import Loading from "../Components/Common/Loading";
 
 import * as ecommerceActions from "../Actions/ecommerceActions";
 import * as viewProductActions from "../Actions/viewProductActions";
+import * as appActions from "../Actions/appActions";
 
 class Shop extends Component {
   componentDidMount() {
@@ -54,14 +55,23 @@ class Shop extends Component {
     }
   };
 
+  handleCloseFilter = (e) => {
+    e.stopPropagation();
+    if (this.props.filterOpen === true && (isMobile || this.props.size === "S")) this.props.dispatch(appActions.toggleFilter());
+  };
+
   render() {
+    const { size } = this.props;
     return (
       <ScreenLayout navigate={this.props.navigate} location={this.props.location}>
         <Stack direction="column">
           <OptionsBar />
           <Box sx={{ display: "flex" }}>
             <Filters />
-            <Box component="main" sx={{ flexGrow: 1, position: isMobile ? "absolute" : "relative" }}>
+            {this.props.filterOpen && (isMobile || this.props.size === "S") && (
+              <Box onClick={this.handleCloseFilter} sx={{ position: "absolute", width: "100%", height: "150vh", zIndex: 500 }}></Box>
+            )}
+            <Box component="main" sx={{ flexGrow: 1, position: isMobile || size === "S" ? "absolute" : "relative" }}>
               <Loading isLoading={this.props.isLoading} />
               <Items />
             </Box>
@@ -79,6 +89,8 @@ function mapStateToProps(state, props) {
     sort: state.ecommerceReducer.sort,
     sortsStructures: state.ecommerceReducer.sortsStructures,
     search: state.ecommerceReducer.search,
+    filterOpen: state.appReducer.filterOpen,
+    size: state.configReducer.dimensions.size,
   };
 }
 
