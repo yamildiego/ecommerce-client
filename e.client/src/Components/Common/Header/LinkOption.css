@@ -1,12 +1,16 @@
 .LinkOption {
   cursor: pointer;
   font-size: 20px;
+  color: #f55e3f;
 }
+
 .LinkOption:hover {
   cursor: pointer;
   text-decoration: underline;
+  color: #f55e3f;
 }
 
 a.LinkOptionLink:visited {
   color: #222;
+  color: #f55e3f;
 }

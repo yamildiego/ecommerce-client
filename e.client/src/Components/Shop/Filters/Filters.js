@@ -40,7 +40,7 @@ class Filters extends React.Component {
   render() {
     const { filtersStructures } = this.props;
     return (
-      <Drawer variant="permanent" open={this.props.filterOpen}>
+      <Drawer variant="permanent" open={this.props.filterOpen} sx={{ zIndex: 8 }}>
         <FilterListCheckbox id={"onSale"} {...filtersStructures.onSale} />
         <FilterListCheckbox id={"category"} {...filtersStructures.category} />
         {this.props.currentFilter === "SEARCH" && <FilterListCheckbox id={"gender"} {...filtersStructures.gender} />}
@@ -53,7 +53,6 @@ class Filters extends React.Component {
   }
 }
 
-// //  ((gender.length == 1 || gender.length == 0)  && this.props.currentFilter === "SEARCH") || this.props.filters.gender.length > 1) && (
 function mapStateToProps(state, props) {
   return {
     filterOpen: state.appReducer.filterOpen,
