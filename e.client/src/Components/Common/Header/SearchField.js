@@ -38,6 +38,9 @@ class SearchField extends Component {
       if (paths.length < 2 || (paths.length >= 2 && paths[1].toUpperCase() !== "SHOP")) {
         // let sort = this.props.sort != null ? this.props.sortsStructures[this.props.sort].value : {};
         // this.props.dispatch(ecommerceActions.loadProducts({ ...this.props.filters, page: 1 }, search, sort));
+
+        this.props.dispatch(ecommerceActions.setCurrentFilter("SEARCH"));
+
         this.props.navigate("/Shop/" + this.props.search);
       }
     }

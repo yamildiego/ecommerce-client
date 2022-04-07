@@ -7,11 +7,14 @@ import BoxLogin from "../Components/Common/Login";
 
 import ScreenLayout from "./ScreenLayout";
 
+import * as ecommerceActions from "../Actions/ecommerceActions";
+
 class Login extends Component {
   state = { clearForm: false };
 
   componentDidMount() {
     this.setState({ clearForm: true });
+    this.props.dispatch(ecommerceActions.setSearch(""));
   }
 
   render() {

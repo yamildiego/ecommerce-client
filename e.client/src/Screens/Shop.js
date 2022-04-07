@@ -32,7 +32,7 @@ class Shop extends Component {
   }
 
   setFilter = (sort) => {
-    const initFilters = { category: [], gender: [], kids: [], price: [30, 450], page: 1 };
+    const initFilters = { category: [], gender: [], kids: [], onSale: [], price: [0, 610], page: 1 };
     if (this.props.params !== undefined && "filter" in this.props.params) {
       switch (this.props.params.filter) {
         case "MEN":

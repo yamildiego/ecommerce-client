@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Link } from "react-router-dom";
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import Men from "../../Assets/Images/men.jpg";
 import Women from "../../Assets/Images/women.jpg";
 import Kids from "../../Assets/Images/kids.jpg";
+
+import LinkBox from "../Common/LinkBox";
+
+import * as ecommerceActions from "../../Actions/ecommerceActions";
 
 const categories = [
   { key: 1, id: "MEN", src: Men, title: "Men" },
@@ -17,19 +19,26 @@ const categories = [
 ];
 
 class Categories extends Component {
+  handleOnClick = (category) => {
+    let filter = {};
+    if (category === "MEN" || category === "WOMEN") filter.gender = [category];
+    if (category === "KIDS") filter.kids = ["BOYS", "GIRLS"];
+    this.props.dispatch(ecommerceActions.resetFilter(filter, "FILTER"));
+  };
+
   render() {
     return (
       <Box sx={{ ...styles.container, flexDirection: this.props.size === "S" ? "column" : "row" }}>
         {categories.map((category, index) => {
           return (
-            <Link key={index} variant="contained" to={"/Shop/" + category.id} style={styles.link}>
+            <LinkBox key={index} onClick={() => this.handleOnClick(category.id)} to={"/Shop"} variant="contained" style={styles.link}>
               <Box sx={styles.containerImage}>
                 <img src={category.src} alt={category.title} loading="lazy" style={styles.image} />
                 <Button sx={styles.btn} variant="contained">
                   {category.title}
                 </Button>
               </Box>
-            </Link>
+            </LinkBox>
           );
         })}
       </Box>

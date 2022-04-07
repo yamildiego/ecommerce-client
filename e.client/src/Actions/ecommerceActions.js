@@ -27,9 +27,10 @@ export const setPage = (page) => ({
   page,
 });
 
-export const resetFilter = (filters = {}) => ({
+export const resetFilter = (filters = {}, currentFilter = "SEARCH") => ({
   type: Types.RESET_FILTER,
   filters,
+  currentFilter,
 });
 
 export const setFiltersStructures = (filtersStructures) => ({
@@ -50,6 +51,11 @@ export const setProducts = (products) => ({
 export const setTotalPages = (totalPages) => ({
   type: Types.SET_TOTAL_PAGES,
   totalPages,
+});
+
+export const setCurrentFilter = (currentFilter) => ({
+  type: Types.SET_CURRENT_FILTER,
+  currentFilter,
 });
 
 export const loadProducts = (filter, search, sort) => {

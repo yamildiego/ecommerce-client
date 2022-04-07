@@ -43,18 +43,23 @@ class Filters extends React.Component {
       <Drawer variant="permanent" open={this.props.filterOpen}>
         <FilterListCheckbox id={"onSale"} {...filtersStructures.onSale} />
         <FilterListCheckbox id={"category"} {...filtersStructures.category} />
-        <FilterListCheckbox id={"gender"} {...filtersStructures.gender} />
-        <FilterListCheckbox id={"kids"} {...filtersStructures.kids} />
+        {this.props.currentFilter === "SEARCH" && <FilterListCheckbox id={"gender"} {...filtersStructures.gender} />}
+        {(this.props.currentFilter === "SEARCH" || this.props.filters.kids.length > 0) && (
+          <FilterListCheckbox id={"kids"} {...filtersStructures.kids} />
+        )}
         <FilterRange id={"price"} {...filtersStructures.price} />
       </Drawer>
     );
   }
 }
 
+// //  ((gender.length == 1 || gender.length == 0)  && this.props.currentFilter === "SEARCH") || this.props.filters.gender.length > 1) && (
 function mapStateToProps(state, props) {
   return {
     filterOpen: state.appReducer.filterOpen,
     filtersStructures: state.ecommerceReducer.filtersStructures,
+    filters: state.ecommerceReducer.filters,
+    currentFilter: state.ecommerceReducer.currentFilter,
   };
 }
 

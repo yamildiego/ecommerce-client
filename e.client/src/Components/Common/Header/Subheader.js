@@ -26,15 +26,18 @@ class Subheader extends Component {
 
   handleOnClickCategory = (key) => {
     let filter = { category: [key] };
+    this.props.dispatch(ecommerceActions.setSearch(""));
+
     if (this.state.open === "MEN" || this.state.open === "WOMEN") filter.gender = [this.state.open];
     if (this.state.open === "KIDS") filter.kids = ["BOYS", "GIRLS"];
 
-    this.props.dispatch(ecommerceActions.resetFilter(filter));
+    this.props.dispatch(ecommerceActions.resetFilter(filter, "FILTER"));
     this.setState({ open: false });
   };
 
   handleOnClick = (key) => {
     let filter = {};
+    this.props.dispatch(ecommerceActions.setSearch(""));
 
     if (this.state.open === "MEN" || this.state.open === "WOMEN") filter.gender = [this.state.open];
     if (this.state.open === "KIDS") filter.kids = ["BOYS", "GIRLS"];
@@ -53,7 +56,7 @@ class Subheader extends Component {
         break;
     }
 
-    this.props.dispatch(ecommerceActions.resetFilter(filter));
+    this.props.dispatch(ecommerceActions.resetFilter(filter, "FILTER"));
     this.setState({ open: false });
   };
 

@@ -9,9 +9,11 @@ import ListYourWishlist from "../Components/Wishlist/ListYourWishlist";
 import Login from "../Components/Common/Login";
 
 import * as bagActions from "../Actions/bagActions";
+import * as ecommerceActions from "../Actions/ecommerceActions";
 
 class Wishlist extends Component {
   componentDidMount() {
+    this.props.dispatch(ecommerceActions.setSearch(""));
     this.props.dispatch(bagActions.setActiveStep(0));
   }
 

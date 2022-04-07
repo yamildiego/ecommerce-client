@@ -12,9 +12,11 @@ import MyStepper from "../Components/Common/MyStepper/MyStepper";
 import ListYourBag from "../Components/Bag/ListYourBag/ListYourBag";
 
 import * as bagActions from "../Actions/bagActions";
+import * as ecommerceActions from "../Actions/ecommerceActions";
 
 class Bag extends Component {
   componentDidMount() {
+    this.props.dispatch(ecommerceActions.setSearch(""));
     this.props.dispatch(bagActions.setActiveStep(0));
   }
 

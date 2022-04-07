@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { isMobile } from "react-device-detect";
+import { isMobile, isBrowser } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -12,13 +12,14 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 
-import FilterListIcon from "@mui/icons-material/FilterList";
-import FilterListOffIcon from "@mui/icons-material/FilterListOff";
+import TuneIcon from "@mui/icons-material/Tune";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Collapse from "@mui/material/Collapse";
 
 import * as appActions from "../../Actions/appActions";
 import * as ecommerceActions from "../../Actions/ecommerceActions";
+
+import TitleFilter from "./TitleFilter";
 
 class OptionsBar extends Component {
   state = { expanded: false };
@@ -47,15 +48,16 @@ class OptionsBar extends Component {
     const fontWeightShow = !this.props.filterOpen ? 500 : 100;
     return (
       <Stack direction="row" spacing={1} sx={{ justifyContent: "end", position: "relative" }}>
-        <Box sx={{ flex: 1, pl: 2, m: "10px" }}>
+        <Box sx={{ flex: 1, pl: 2, m: "10px", display: "flex", flexDirection: "row" }}>
           <h2 style={{ margin: 0, cursor: "default", userSelect: "none" }}>
             Filters
             {this.props.showReset && (
               <Link sx={{ textDecoration: "none", cursor: "pointer" }} onClick={this.resetFilter}>
-                <span style={{ fontSize: "12px", fontweight: "normal", marginLeft: "5px" }}>(Reset)</span>
+                <span style={{ fontSize: "12px", fontweight: "normal", marginLeft: "5px" }}>(Clean filter)</span>
               </Link>
             )}
           </h2>
+          {isBrowser && this.props.size !== "S" && <TitleFilter />}
         </Box>
         <Button
           sx={{ width: isMobile ? "auto" : "242px", fontWeight: fontWeightSort, ml: 0 }}
@@ -96,7 +98,7 @@ class OptionsBar extends Component {
           sx={{ fontWeight: fontWeightShow }}
           onClick={this.toggleFilter}
           variant="inherit"
-          endIcon={this.props.filterOpen ? <FilterListOffIcon sx={{ mr: 1 }} /> : <FilterListIcon sx={{ mr: 1 }} />}
+          endIcon={this.props.filterOpen ? <TuneIcon sx={{ mr: 1 }} /> : <TuneIcon sx={{ mr: 1, transform: "scaleX(-1)" }} />}
         >
           {(size === "M" || size === "L") && (
             <React.Fragment>

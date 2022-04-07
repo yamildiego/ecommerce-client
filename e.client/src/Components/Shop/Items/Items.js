@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -9,6 +10,7 @@ import trucateNumber from "../../../Functions/trucateNumber";
 
 import RowItems from "./RowItems";
 import NoElements from "./NoElements";
+import TitleFilter from "../TitleFilter";
 
 class Items extends Component {
   render() {
@@ -17,7 +19,8 @@ class Items extends Component {
       <Box sx={{ borderLeft: "1px solid #d6d6d6", borderTop: "1px solid #d6d6d6", mb: 1 }}>
         {!isLoading && products.length === 0 && <NoElements search={this.props.search} />}
         {products.length > 0 && (
-          <Stack direction="row" spacing={0} sx={{ justifyContent: "center" }}>
+          <Stack direction="column" spacing={0} sx={{ justifyContent: "center" }}>
+            {(isMobile || this.props.size === "S") && <TitleFilter />}
             <Pagination />
           </Stack>
         )}
@@ -46,6 +49,7 @@ function mapStateToProps(state, props) {
     filters: state.ecommerceReducer.filters,
     products: state.ecommerceReducer.products,
     limitPerRow,
+    size,
   };
 }
 

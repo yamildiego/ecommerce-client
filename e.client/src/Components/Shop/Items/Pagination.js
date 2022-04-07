@@ -11,7 +11,7 @@ class Pagination extends Component {
 
   render() {
     return (
-      <Stack direction="row" spacing={0}>
+      <Stack direction="row" spacing={0} sx={{ justifyContent: "center" }}>
         <CreateLink
           i={this.props.page - 1}
           label={`<`}

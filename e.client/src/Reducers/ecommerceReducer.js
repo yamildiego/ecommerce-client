@@ -35,7 +35,7 @@ const initFiltersStructures = {
   price: { title: "Price", expanded: true, limits: [0, 600] },
 };
 
-const initFilters = { category: [], gender: [], kids: [], onSale: [], price: [30, 450], page: 1 };
+const initFilters = { category: [], gender: [], kids: [], onSale: [], price: [0, 610], page: 1 };
 const initSortStructures = [
   { name: "Newest", value: { pid: -1 } },
   { name: "Price: High-Low", value: { "price.currentPrice": -1 } },
@@ -46,6 +46,7 @@ const initSort = null;
 const initialState = {
   isLoading: true,
   search: "",
+  currentFilter: "SEARCH",
   length: 0,
   products: [],
   totalPages: 0,
@@ -82,6 +83,9 @@ export default function appReducer(state = initialState, action = {}) {
     case Types.SET_TOTAL_PAGES: {
       return { ...state, totalPages: action.totalPages };
     }
+    case Types.SET_CURRENT_FILTER: {
+      return { ...state, currentFilter: action.currentFilter };
+    }
     case Types.RESET_FILTER: {
       return {
         ...state,
@@ -89,6 +93,7 @@ export default function appReducer(state = initialState, action = {}) {
         filtersStructures: initFiltersStructures,
         showReset: false,
         isLoading: true,
+        currentFilter: action.currentFilter,
       };
     }
     default:
