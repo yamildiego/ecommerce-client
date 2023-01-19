@@ -1,13 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/e.client/node_modules
-/e.server/node_modules
-
-/e.client/package-lock.json
-/e.client/build
-/e.server/package-lock.json
-/e.server/.env
+node_modules
+package-lock.json
+build
+.env
 
 /.pnp
 .pnp.js
